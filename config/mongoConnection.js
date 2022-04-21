@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const settings = {
   "mongoConfig": {
     "serverUrl": "mongodb://localhost:27017/",
-    "database": "Zhipeng_Yin_lab6"
+    "database": "DuckBook"
   }
 };
 
