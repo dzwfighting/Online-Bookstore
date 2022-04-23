@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/dzwfighting/Online-Bookstore#readme",
   "dependencies": {
-    "mongodb": "^4.3.1",
-    "express": "^4.17.1",
-    "express-handlebars": "^5.2.0"
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.3",
+    "express-handlebars": "^5.3.5",
+    "handlebars": "^4.7.7",
+    "middleware": "^1.0.0",
+    "mongodb": "^4.5.0"
   }
 }
