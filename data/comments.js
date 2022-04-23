@@ -5,13 +5,13 @@ const postsCollection = require("./posts.js");
 
 async function getCommentById(id) {
     if (!id || typeof id !== "string")
-        throw 'You must provide an id to search for';
+        throw 'Your input is empty, please provide an id to search';
     let commentCollection = await comments();
     let objId = ObjectId.createFromHexString(id);
-    let commentGoal = await commentCollection.findOne({ _id: objId });
-    if (commentGoal === null)
-        throw 'No comment with that id';
-    return commentGoal;
+    let comment = await commentCollection.findOne({ _id: objId });
+    if (comment === null)
+        throw 'This id did not put a comment, please try a new one';
+    return comment;
 }
 
 async function getAllComments() {
@@ -23,11 +23,11 @@ async function getAllComments() {
 async function addComment(postId, userId, content) {
 
     if (!postId || typeof postId !== "string")
-        throw 'you should input a string as the postId';
+        throw 'the postId you input must is string type';
     if (!userId || typeof userId !== "string")
-        throw 'you should input a string as the userId';
+        throw 'the userId you input must is string type';
     if (!content || typeof content !== "string")
-        throw 'you should input a string as the content';
+        throw 'the ucontent you comment must is string type';
 
     let commentCollection = await comments();
     let newComment = {
@@ -38,7 +38,7 @@ async function addComment(postId, userId, content) {
     }
     let insertInfo = await commentCollection.insertOne(newComment);
     if (insertInfo === null)
-        throw 'Something wrong when adding the comment';
+        throw 'Oh, something wrong, please try again';
     let newCommentId = insertInfo.insertedId;
     let commentCreated = await getCommentById(newCommentId.toHexString());
 
@@ -49,9 +49,9 @@ async function addComment(postId, userId, content) {
 
 async function removeComment(postId, commentId) {
     if (!postId || typeof postId !== "string")
-        throw 'you should input a string as the postId';
+        throw 'the postId you input must is string type';
     if (!commentId || typeof commentId !== "string")
-        throw 'you should input a string as the commentId';
+        throw 'the commentId you input must is string type';
 
     await postsCollection.removeCommentIdFromPost(postId, commentId);
 
@@ -61,7 +61,6 @@ async function removeComment(postId, commentId) {
     if (deletionInfo.deletedCount === 0) {
         throw `Could not delete the comment`;
     }
-    // userCollection.removeCommentFromUser(userId,commentId);
     return true;
 }
 
