@@ -27,7 +27,7 @@ async function addComment(postId, userId, content) {
     if (!userId || typeof userId !== "string")
         throw 'the userId you input must is string type';
     if (!content || typeof content !== "string")
-        throw 'the ucontent you comment must is string type';
+        throw 'your input is empty, please input some content';
 
     let commentCollection = await comments();
     let newComment = {
@@ -42,7 +42,7 @@ async function addComment(postId, userId, content) {
     let newCommentId = insertInfo.insertedId;
     let commentCreated = await getCommentById(newCommentId.toHexString());
 
-    await postsCollection.addCommentIdToPost(postId, newCommentId.toHexString());
+    await postsCollection.addCommentId(postId, newCommentId.toHexString());
 
     return commentCreated;
 }
@@ -53,13 +53,13 @@ async function removeComment(postId, commentId) {
     if (!commentId || typeof commentId !== "string")
         throw 'the commentId you input must is string type';
 
-    await postsCollection.removeCommentIdFromPost(postId, commentId);
+    await postsCollection.removeCommentId(postId, commentId);
 
     let commentObjId = ObjectId.createFromHexString(commentId);
     let commentCollection = await comments();
     let deletionInfo = await commentCollection.removeOne({ _id: commentObjId });
     if (deletionInfo.deletedCount === 0) {
-        throw `Could not delete the comment`;
+        throw `Oh! Something wrong when we remove this comment, please try again`;
     }
     return true;
 }
