@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<div>
+    <h1 style="text-align: center; color: #b52818">The Report List</h1>
+    <h3 style="text-align: center"><a class="BACK" href='http://localhost:3000/homePage'>Back to home page</a></h3>
+    <br/>
+</div>
+<div>
+    {{#each reportList}}
+        <ul>
+            <li class="reportList" >ReportId: <span>{{this._id}}</span></li>
+            <li class="reportList">Reporter's userId: {{this.userId}}</li>
+            <li class="reportList">PostId: <a href='http://localhost:3000/posts/postInfo/{{this.postId}}'><span>{{this.postId}}</span></a></li>
+            <li class="reportList">Reasons: {{this.reasons}}</li>
+            <br/>
+            <div style="text-align: center">
+                <button class="deleteBtn btn btn-danger" >delete report</button>
+                <button class="deleteBtnSuper btn AllButton">delete post </button>
+            </div>
+        </ul>
+    {{/each}}
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+</div>
+</body>
+
+</html>
+<script>
+    let deleteBtn = document.getElementsByClassName("deleteBtn");
+    for (let i = 0; i < deleteBtn.length; i++) {
+        deleteBtn[i].onclick =function() {
+            let dad = this.parentNode;
+            let grandfather=dad.parentNode;
+            let sonli = grandfather.getElementsByTagName("li");
+            let sonspan=sonli[0].getElementsByTagName("span");
+            let reportId=sonspan[0].innerText
+            var xhr = new XMLHttpRequest();
+            xhr.open('post', 'http://localhost:3000/posts/removeReport');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            xhr.send('reportId='+reportId);
+            xhr.onload = function () {
+                window.location.reload();
+            }
+        }
+    }
+    let deleteBtnSuper = document.getElementsByClassName("deleteBtnSuper");
+    for (let i = 0; i < deleteBtnSuper.length; i++) {
+        deleteBtnSuper[i].onclick =function() {
+            let dad = this.parentNode;
+            let grandfather=dad.parentNode;
+            let sonli = grandfather.getElementsByTagName("li");
+            let sonspan=sonli[0].getElementsByTagName("span");
+            let reportId=sonspan[0].innerText
+            let sonspan2=sonli[2].getElementsByTagName("span");
+            let postId=sonspan2[0].innerText
+            var xhr = new XMLHttpRequest();
+            xhr.open('post', 'http://localhost:3000/posts/removeReportAndPost');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            xhr.send('reportId='+reportId+'&postId='+postId);
+            xhr.onload = function () {
+                
+                window.location.reload();
+            }
+        }
+    }
+
+</script>
