@@ -1,0 +1,47 @@
+.signup{
+    background-image: url('../../public/static/signup.jpeg');
+    background-position: bottom;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.half{
+    width:50%;
+    float: left;
+}
+
+.signup-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:100vh;
+}
+
+.form-container{
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: block;
+    width: 60%;
+    padding: 3em 2em;
+}
+
+.half-form{
+    width:45%;
+    margin-right: 5%;
+    float: left;
+}
+.signup-topic{
+    display: none;
+}
+
+form h1{
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+

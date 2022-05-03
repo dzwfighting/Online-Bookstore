@@ -1,0 +1,60 @@
+<section class="signup half">
+    <header style="border-bottom: none; text-align: center;">
+        <link rel="stylesheet" href="/public/css/signup.css" />
+<!--        <a href="/"><img class="wow fadeIn" data-wow-delay=".5s" id="logo1" src="../../public/static/logo.jpeg" alt="Logo" style="width:5em"></a>-->
+<!--        <h1 class="wow fadeIn ti" data-wow-delay=".5s">Welcome to choose DuckBook!</h1>-->
+    </header>
+</section>
+
+<section class="half signup-form">
+    <div class="form-container wow fadeIn" data-wow-delay="1s" >
+        <div class="signup-topic">
+            <a href="/"><img class="wow fadeIn" data-wow-delay=".5s" id="logo2" src="../../public/static/logo.jpeg" alt="Logo" style="width:5em"></a>
+            <h1 class="wow fadeIn" data-wow-delay=".5s" >Welcome to choose DuckBook!</h1>
+        </div>
+        <form action="/users/signup" class="server-form" method="post" id="static-form">
+            <h1 >Sign up now!</h1>
+            <div class="form-group ">
+                <label for="firstname" style="font-weight: normal;">User Name</label>
+                <input type="text" class="form-control" id="firstname" name="username" placeholder="User Name" value="{{username}}">
+            </div>
+            <div class="form-group ">
+                <label for="email" style="font-weight: normal;">Email</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{email}}">
+            </div>
+
+            <div class="form-group ">
+                <label for="pwd" style="font-weight: normal;">Password</label>
+                <input type="password" class="form-control" id="pwd" name="password" placeholder="Password" value="{{password}}">
+            </div>
+            <div class="form-group ">
+                <label for="comfirm" style="font-weight: normal;">Re-password</label>
+                <input type="password" class="form-control" id="comfirm" name="comfirm" placeholder="Comfirm password" value="{{comfirm}}">
+            </div>
+
+            {{#if hasErrors }}
+                <div class="form-group">
+                    <ul class="error-list" style="padding-inline-start: 0px;">
+
+                        <li style="list-style: none;">
+                            <p class="not-found">{{error}}</p>
+                        </li>
+                    </ul>
+                </div>
+            {{/if}}
+            <div class="form-group">
+                <button type="submit" class="btn_signup">Submit</button>
+            </div>
+            <br>
+            <div class="form-group" style="text-align:center;">
+                <p>Already has account?</p> <a href="/users/login">Log in here</a>
+            </div>
+
+        </form>
+
+    </div>
+</section>
+
+
+
+</script>
