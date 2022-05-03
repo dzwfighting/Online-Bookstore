@@ -8,11 +8,11 @@ module.exports = {
            
            if (!id) throw "You must provide an id to search for";
           
-           if(id.constructor != objId){
+           if(id.constructor != ObjectID){
                if(id.constructor == String){
-               if(objId.isValid(id)){
+               if(ObjectID.isValid(id)){
                   
-                   var obj = new objId(id)
+                   var obj = new ObjectID(id)
                    const bookCollection = await books();
                   
                    const book = await bookCollection.findOne({_id:obj})
