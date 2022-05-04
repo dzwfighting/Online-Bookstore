@@ -1,0 +1,243 @@
+body {
+
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-size: 15pt;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+main {
+    max-width: 75%;
+    margin: auto;
+}
+
+header {
+    border-bottom: 1px solid #afafaf;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: rgb(0, 0, 0);
+
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.25rem;
+}
+
+h5 {
+    font-size: 1.15rem;
+}
+
+h6 {
+    font-size: 1.05rem;
+}
+
+p {
+    font-size: 1rem;
+
+}
+
+.btn_signup{
+    margin-top:1em;
+    background-color: rgb(212, 0, 0);
+    text-decoration: none;
+    color:#fff;
+    border-radius: 4px;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: .25s ease;
+    opacity: 1;
+    text-transform: uppercase;
+    width:200px;
+    margin: auto;
+    display: block;
+    position: relative;
+}
+
+.btn_signup::after{
+    content:"";
+    background-image: url(../../public/static/corner.svg);
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 15px;
+    height: 25px;
+    position: absolute;
+    top: 11px;
+    left: 150px;
+    opacity: 1;
+    transition: .25s ease;
+}
+
+.btn_signup:hover{
+    color:#fff;
+    text-decoration: none;
+    background-color: rgb(218, 49, 49);
+}
+
+.btn_signup:hover::after {
+    opacity: 0;
+    left: 160px;
+}
+
+.btn_signup:focus{
+    color:#fff;
+    text-decoration: none;
+}
+.btn_signup:visited{
+    color:#fff;
+    text-decoration: none;
+}
+
+#fullpage{
+    height:100vh;
+    background-image: url('../../public/static/login.jpeg');
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+#fp-nav ul li a span, .fp-slidesNav ul li a span{
+    background-color: #fff;
+}
+
+.title{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 6.5rem;
+    color: #fff;
+    line-height: 6rem;
+}
+
+.subtitle{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 3rem;
+    color: #fff;
+    line-height: 6rem;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    z-index: 6999;
+    width: 100%;
+    padding:15px 30px;
+    transition: .6s ease;
+}
+nav .left{
+    float: left;
+    line-height: 110px;
+    display: flex;
+    transition: .2s ease-in;
+}
+
+nav .left form{
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    margin-left: 2em;
+}
+
+nav .left #logo{
+    width:80px;
+}
+nav .right{
+    float: right;
+}
+nav .right ul{
+    margin-bottom: 0px;
+    padding-left: 0px;
+}
+nav .right ul li{
+    list-style: none;
+    display: inline-block;
+    margin:0px 10px;
+    position: relative;
+}
+
+nav .right ul li a{
+    display: block;
+    /* height: 110px; */
+    line-height: 110px;
+    text-decoration: none;
+    color:#fff;
+    opacity: 1;
+    transition: .2s ease-in;
+}
+
+nav .right ul li a:hover{
+    opacity: .8;
+}
+
+nav .right ul li ul{
+    /* visibility: hidden; */
+    opacity: 0;
+    position: absolute;
+    transition: all 1s ease;
+    left: -90px;
+    width: 165px;
+    display: none;
+    background-color: rgb(255, 255, 255);
+    padding: 0em 1em;
+}
+
+nav .right ul li ul:hover, nav .right ul li:hover ul{
+
+    opacity: 1;
+    display: block;
+}
+
+nav .right ul li ul li:nth-child(1)::before{
+    width: 25px;
+    height: 25px;
+    display: block;
+    content: "";
+    background-image: url('../static/topnav.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: -6px;
+    bottom: 47px;
+}
+
+nav .right ul li ul li{
+    clear: both;
+}
+
+nav .right ul li ul li:nth-child(1){
+    border-bottom: 2px solid rgb(185, 185, 185);
+}
+nav .right ul li ul li:nth-child(2){
+    border-bottom: 2px solid rgb(185, 185, 185);
+}
+nav .right ul li ul li a{
+    line-height: 60px;
+    color:rgb(0, 0, 0);
+    opacity: 1;
+    transition: all .3s ease;
+}
+nav .right ul li ul li a:hover{
+    color:rgb(223, 119, 0);
+}

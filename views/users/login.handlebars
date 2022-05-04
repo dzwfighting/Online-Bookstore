@@ -1,0 +1,41 @@
+
+<head><link rel="stylesheet" href="/public/css/login.css" /></head>
+<section class="login-full">
+    <div class="form-container-login wow fadeIn" data-wow-delay="1s" >
+        <form action="/user/login" class="server-form" method="post" id="static-form">
+            <a href="/"><img src="../../public/static/logo.jpeg" style="width:5em" alt="logo"></a>
+            <h1 >Welcome!</h1>
+            <h2 style="margin-bottom: 20px;">Here is your Duck Book!</h2>
+
+            <div class="form-group" style="margin-bottom: 1em;">
+
+                <label for="username" style="font-weight: normal; display:none;">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="username" value="{{username}}">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1em;">
+
+                <label for="password" style="font-weight: normal; display:none;">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="{{password}}">
+            </div>
+
+            {{#if hasErrors }}
+                <div class="form-group" style="margin-bottom: 15px;text-align: left;">
+                    <ul class="error-list" style="padding-inline-start: 0px;">
+
+                        <li style="list-style: none;">
+                            <p class="not-found">{{error}}</p>
+                        </li>
+                    </ul>
+                </div>
+            {{/if}}
+            <div class="form-group">
+                <button type="submit" class="btn_signup">LOG IN</button>
+            </div>
+            <div class="form-group">
+                <p>Don't have account?</p> <a href="/users/signup" style="color: #005b91;">Sign up here</a>
+            </div>
+        </form>
+
+    </div>
+</section>

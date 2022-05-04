@@ -16,7 +16,7 @@ app.set("view engine", "handlebars");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-configRoutes(app);
+
 app.use(
     session({
       name: 'AuthCookie',
@@ -40,6 +40,7 @@ app.use(async (req, res, next) => {
     next();
 });
 
+configRoutes(app);
 app.listen(3000, () => {
   console.log("We've now got a server!");
   console.log("Your routes will be running on http://localhost:3000");

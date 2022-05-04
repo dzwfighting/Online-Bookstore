@@ -3,13 +3,13 @@ const express = require("express");
 const router = express.Router();
 module.exports = router;
 
-router.get("/", async (req, res) => {
-        if (req.session.user) {
-            return res.redirect("private");
-        } else {
-            return res.render("login.handlebar", {title: "login.handlebar"});
-        }
-    });
+// router.get("/", async (req, res) => {
+//         if (req.session.user) {
+//             return res.redirect("/homepage");
+//         } else {
+//             return res.render("users/login", {title: "LogIn Page"});
+//         }
+//     });
 router.get("/signup", async (req, res) => {
         console.log("sign up")
 
@@ -47,6 +47,7 @@ router.post("/signup",async (req, res) => {
 
 router.get("/login", async (req, res) => {
         console.log("log in")
+        console.log(req.session)
         if (req.session.user) {
             return res.redirect("/homepage");
         }else {

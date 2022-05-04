@@ -1,0 +1,20 @@
+.login-full{
+    height:100vh;
+    background-image: url('../../public/static/login1.jpg');
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container-login{
+    margin-top: 5em;
+    width: 500px;
+    height:600px;
+    background-color: rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+    margin: auto;
+    text-align: center;
+    padding:3em 4em 5em 4em;
+    position: relative;
+}
