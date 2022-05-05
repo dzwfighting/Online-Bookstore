@@ -7,12 +7,12 @@ module.exports = {
        async get(id) {
            
            if (!id) throw "You must provide an id to search for";
-          
-           if(id.constructor != ObjectID){
+           if (id.trim().length === 0) throw "The id must not be an empty string";
+           if(id.constructor != objId){
                if(id.constructor == String){
-               if(ObjectID.isValid(id)){
+               if(objId.isValid(id)){
                   
-                   var obj = new ObjectID(id)
+                   var obj = new objId(id)
                    const bookCollection = await books();
                   
                    const book = await bookCollection.findOne({_id:obj})
@@ -62,14 +62,14 @@ module.exports = {
         if (!description|| typeof description != 'string') throw "You must provide a string of book Description";
         
         //genre will be an Object
-        if (!bookTag || typeof bookTag != 'object') throw "You must provide book genre";
+        if (!bookTag) throw "You must provide book genre";
        
         if (!price|| typeof price != 'string') throw "You must provide book price";
 
         if (!publicationDate|| typeof publicationDate != 'string') throw "You must provide a book publish time";
 
-        if (!bookCovers) throw "You must provide book images";
-        
+        if (!bookCovers || typeof bookCovers != 'string') throw "You must provide book images";
+        if (!content || typeof content != 'string') throw "You must provide book images";
         const bookCollection = await books();
        
         var checkExist = await bookCollection.find({bookName: bookName}).toArray();
@@ -89,7 +89,7 @@ module.exports = {
                 price:price,
                 publicationDate: new Date(publicationDate),
                 content: content,
-                avgRating:avg, //add avg rating
+                avgRating:0, //add avg rating
                 reviews:[],
                 rating:[]
                 };
@@ -106,6 +106,20 @@ module.exports = {
            
         } 
       },
+      async removeBookById(id) {
+        if (!id) throw "An id must be provided";
+        if (typeof id !== 'string') throw "The id must be a string";
+        if (id.trim().length === 0) throw "The id must not be an empty string";
+        var obj = new objId(id)
+    
+        const bookCollection = await books();
+        const deletionInfo = await bookCollection.deleteOne({ _id: obj });
+        if (deletionInfo.deletedCount === 0) {
+            throw "Could not delete book";
+        }
+    
+        return true;
+    },
       async getAll() {
  
         const bookCollection = await books();

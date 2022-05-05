@@ -4,27 +4,27 @@ const multer = require('multer')
 const data = require("../data");
 const bookData = data.book;
 
-const storage = multer.diskStorage({
-      destination: function(req, file, cb){
-          cb(null,'./uploads/')
-      },
-      filename: function(req, file, cb){
-          cb(null,new Date().toISOString() + file.originalname)
-      }
-  })
-const fileFilter = (req, file, cb)=>{
-      if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png'){
-            cb(null, true)
-      }else{
-            cb(null, false)
-      }
-}
-const upload = multer({
-      storage:storage, 
-      fileFilter: fileFilter
-  })
+// const storage = multer.diskStorage({
+//       destination: function(req, file, cb){
+//           cb(null,'./uploads/')
+//       },
+//       filename: function(req, file, cb){
+//           cb(null,new Date().toISOString() + file.originalname)
+//       }
+//   })
+// const fileFilter = (req, file, cb)=>{
+//       if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png'){
+//             cb(null, true)
+//       }else{
+//             cb(null, false)
+//       }
+// }
+// const upload = multer({
+//       storage:storage, 
+//       fileFilter: fileFilter
+//   })
 //Create books
-router.post('/', upload.single('bookCovers'),async (req, res) => { 
+router.post('/', async (req, res) => { 
     try{
           
             if(typeof req.body.bookName !== 'undefined' && typeof req.body.author !== 'undefined' 
@@ -33,9 +33,8 @@ router.post('/', upload.single('bookCovers'),async (req, res) => {
             && req.body.publicationDate !== 'undefined' ){
                
               const book = await bookData.create(req.body.bookName, req.body.author, 
-                eq.body.description, req.body.bookTag, req.body.price, 
-                req.file.path, 
-                req.body.bookLanguage, req.body.publicationDate)
+                eq.body.description, req.body.bookTag, req.body.price,  
+                req.body.bookCovers, req.body.publicationDate, req.body.content)
           
              
               res.status(200).json({
