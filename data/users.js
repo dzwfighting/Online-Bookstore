@@ -71,7 +71,7 @@ async function login(username,password){
 
 
 async function getUserById(userId){
-    checkStr(userId);
+    //checkStr(userId);
     if (!ObjectId.isValid(userId)) throw 'ID is not a valid Object ID';
     const userCollection = await users();
     let findId = ObjectId(userId);
@@ -96,7 +96,20 @@ function checkStr(str,comment){
 
 
 }
+async function findUserByName(username){
+    let userCollection=await users()
+    try{
+        const user=await userCollection.findOne({username:username});
+        if(user===null){
+            throw 'Cannot find this user!'
+        }
+        return user
+    }catch(e){
+        console.log(e);
+    }
+
+}
 
 module.exports = {
-    setAdminAccess,registerUser,getUserById,login
+    setAdminAccess,registerUser,getUserById,login,findUserByName
 }
