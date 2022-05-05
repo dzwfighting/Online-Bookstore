@@ -3,12 +3,14 @@ const postRoutes = require("./posts");
 const commentRoutes = require("./comments");
 const reportRoutes = require("./reports");
 const homeRoutes = require("./home");
+const bookRoutes = require("./book");
 const constructorMethod = (app) => {
     app.use("/users", userRoutes);
     app.use("/posts", postRoutes);
     app.use("/comments", commentRoutes);
     app.use("/reports", reportRoutes);
     app.use("/", homeRoutes);
+    app.use("/book", bookRoutes);
 
 //     app.get('/', (req, res) => {
 //         res.redirect('/homePage');

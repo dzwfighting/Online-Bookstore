@@ -1,0 +1,72 @@
+<div class="book-container">
+    {{#if book}}
+    <div class="book books" id="{{book._id}}">
+        <div id="main-book-content">
+            <div class="score">
+                <span>{{book.avgRating}}</span> <!-- replace with {{avgRating}} -->
+            </div>
+            <img class="book-img" src="{{book.bookCovers}}" alt="{{book.bookName}}" title="{{book.bookName}}">
+            <div class="info">
+                <h1 class="title">{{book.bookName}}</h1>
+                <p class="subinfo">({{book.publicationDate}}) <span>{{book.author}}</span></p>
+                <table>
+                    <tr>
+                        <th>Genres:</th>
+                        <td>{{stringOfArray book.bookCovers}}</td>
+                    </tr>
+                </table>
+            </div>
+            <h2>Description:</h2>
+            <p id="book-desc">
+                {{book.description}}
+            </p>
+            <h2>Price</h2>
+            <p id="book-price">
+                {{book.price}}
+            {{!-- </p>
+            <div class="actions">
+                    <form class="action-form" action="/book/bookshelf/{{book._id}}" method="POST">
+                        <input name="singleBookshelf" value="single" type="hidden">
+                        <button name="bookshelf" value="bookshelf" id="bookshelf-{{book._id}}"><img src="/public/img/bookshelf.png" alt="Wishlist Icon">Wishlist</button> |
+                    </form>
+            </div> --}}
+        </div>
+
+        <h1>User Reviews</h1>
+        {{#each book.reviews}}
+
+        </div>
+        {{/each}}
+
+        <!-- Should only be shown if user is logged in -->
+        {{!-- <div>
+            <h3 id="review-form-header">Create a new Review</h3>
+            <form id = "review-form" method="POST" action="/books/{{book._id}}" class="new-review-post">
+                <input name="bookTitle" value="{{book.title}}" type="hidden">
+                <input name="bookId" value="{{book._id}}" type="hidden">
+                <div class="form-elem">
+                    <label for="reviewTitle">Title</label>
+                    <input id="reviewTitle" name="reviewTitle" type="text" placeholder="Give your review a title!">
+                </div>
+                <div id="rating-input" class="form-elem">
+                    <label for="reviewRating">Rating</label>
+                    <input id="reviewRating" name="reviewRating" type="number" min="1" max="5" placeholder="5">
+                </div>
+                <div class="form-elem">
+                    <label for="reviewBody">Review</label>
+                    <textarea id="reviewBody" name="reviewBody" placeholder="Enter your review here!" rows="4" cols="50"></textarea>
+                </div>
+                <button id="review-submit-button" type="submit">Submit</button>
+            </form>
+            <div id = "reviewError"  hidden>
+        
+            </div> --}}
+            {{#if hasErrors}}
+               {{#each errors}}
+               <p class="reviewErrors">{{this}}</p>
+              {{/each}}
+            {{/if}}
+        </div>
+    </div>
+    {{/if}}
+</div>
