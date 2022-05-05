@@ -24,18 +24,18 @@ const upload = multer({
       fileFilter: fileFilter
   })
 //Create books
-router.post('/', upload.single('bookImage'),async (req, res) => { 
+router.post('/', upload.single('bookCovers'),async (req, res) => { 
     try{
           
-            if(typeof req.body.bookName !== 'undefined' && typeof req.body.bookAuthor !== 'undefined' 
-            && typeof req.body.bookDescription !== 'undefined' && typeof req.body.bookGenre !== 'undefined' 
-            && typeof req.body.bookPrice !== 'undefined' && req.file.path !== 'undefined'  
-            && req.body.bookLanguage !== 'undefined' && req.body.bookPublishTime !== 'undefined' ){
+            if(typeof req.body.bookName !== 'undefined' && typeof req.body.author !== 'undefined' 
+            && typeof req.body.description !== 'undefined' && typeof req.body.bookTag !== 'undefined' 
+            && typeof req.body.price !== 'undefined' && req.file.path !== 'undefined'
+            && req.body.publicationDate !== 'undefined' ){
                
-              const book = await bookData.create(req.body.bookName, req.body.bookAuthor, 
-                eq.body.bookDescription, req.body.bookGenre, req.body.bookPrice, 
+              const book = await bookData.create(req.body.bookName, req.body.author, 
+                eq.body.description, req.body.bookTag, req.body.price, 
                 req.file.path, 
-                req.body.bookLanguage, req.body.bookPublishTime)
+                req.body.bookLanguage, req.body.publicationDate)
           
              
               res.status(200).json({

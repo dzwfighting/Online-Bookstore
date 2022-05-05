@@ -20,10 +20,10 @@ module.exports = {
                    if (book.length === 0) throw "No book with that id";
                    return book;
                }else{
-                   throw "It is not a valid id"
+                   throw "It is not a valid id";
                }
                }else{
-               throw "Please input Id as object Id or string"
+               throw "Please input Id as object Id or string";
                }
            }else{
                const bookCollection = await books();
@@ -42,7 +42,7 @@ module.exports = {
             const book = await bookCollection.find({$or: 
                 [
                     {bookName: key},
-                    {bookAuthor: key},
+                    {author: key},
                 ]
             }).toArray();
           
@@ -53,24 +53,22 @@ module.exports = {
         
     },
     // create books
-       async create(bookName,bookAuthor, bookDescription, bookGenre, bookPrice, bookImage, bookLanguage,bookPublishTime, bookLocation) {
+       async create(bookName,author, description, bookTag, price, bookCovers,publicationDate, content) {
        
         if (!bookName|| typeof bookName != 'string') throw "You must provide a string of book name";
     
-        if (!bookAuthor|| typeof bookAuthor != 'string') throw "You must provide the author name";
+        if (!author|| typeof author != 'string') throw "You must provide the author name";
 
-        if (!bookDescription|| typeof bookDescription != 'string') throw "You must provide a string of book Description";
+        if (!description|| typeof description != 'string') throw "You must provide a string of book Description";
         
         //genre will be an Object
-        if (!bookGenre || typeof bookGenre != 'object') throw "You must provide book genre";
+        if (!bookTag || typeof bookTag != 'object') throw "You must provide book genre";
        
-        if (!bookPrice|| typeof bookPrice != 'string') throw "You must provide book price";
+        if (!price|| typeof price != 'string') throw "You must provide book price";
 
-        if (!bookLanguage|| typeof bookLanguage != 'string') throw "You must provide a book language";
+        if (!publicationDate|| typeof publicationDate != 'string') throw "You must provide a book publish time";
 
-        if (!bookPublishTime|| typeof bookPublishTime != 'string') throw "You must provide a book publish time";
-
-        if (!bookImage) throw "You must provide book images";
+        if (!bookCovers) throw "You must provide book images";
         
         const bookCollection = await books();
        
@@ -84,17 +82,16 @@ module.exports = {
            
             let newBook = {
                 bookName: bookName,
-                bookAuthor: bookAuthor,
-                bookImage: bookImage,
-                bookDescription: bookDescription,
-                bookGenre: bookGenre,//Array
-                bookPrice:bookPrice,
-                bookLanguage: bookLanguage,
-                bookPublishTime: new Date(bookPublishTime),
-                bookLocation: bookLocation,
+                author: author,
+                bookCovers: bookCovers,
+                description: description,
+                bookTag: bookTag,//Array
+                price:price,
+                publicationDate: new Date(publicationDate),
+                content: content,
                 avgRating:avg, //add avg rating
                 reviews:[],
-                userRating:[]
+                rating:[]
                 };
             
                 const insertInfo = await bookCollection.insertOne(newBook);
