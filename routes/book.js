@@ -23,8 +23,9 @@ const bookData = data.book;
 //       storage:storage, 
 //       fileFilter: fileFilter
 //   })
+
 //Create books
-router.post('/', async (req, res) => { 
+router.post('/newBook', async (req, res) => { 
     try{
           
             if(typeof req.body.bookName !== 'undefined' && typeof req.body.author !== 'undefined' 
@@ -52,6 +53,22 @@ router.post('/', async (req, res) => {
         
          
     });
+ /**
+ * Renders add new book page
+ */
+  router.get('/newBook', async (req, res) => {
+    try {
+        if (!req.session.user_id) {
+            res.redirect('users/login');
+        } else {
+            res.render('book/newBook', { title: "Add Book" , signed_in: req.body.signed_in, partial:'BookForm'});
+        }
+    } catch (e) {
+        res.status(500).json({
+          error:e
+        })
+    }
+}); 
 //get book by id
 router.get("/:id", async (req, res) => { 
     try{
