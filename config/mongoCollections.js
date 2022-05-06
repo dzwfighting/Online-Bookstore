@@ -6,7 +6,7 @@ const getCollectionFn = (collection) => {
   let _col = undefined;
 
   return async () => {
-    if (!_col) {
+    if (!_col) { 
       const db = await dbConnection.connectToDb();
       _col = await db.collection(collection);
     }
