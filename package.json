@@ -26,6 +26,7 @@
     "handlebars": "^4.7.7",
     "middleware": "^1.0.0",
     "mongodb": "^4.5.0",
-    "multer": "^1.4.4"
+    "multer": "^1.4.4",
+    "xss": "^1.0.11"
   }
 }
