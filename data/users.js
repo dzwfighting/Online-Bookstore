@@ -1,24 +1,9 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
+const admin = mongoCollections.admin;
 const {ObjectId} = require("mongodb");
 const bcrypt = require('bcrypt')
-
-async function setAdminAccess(userId) {
-    if (!userId || typeof userId !== "string")
-        throw 'you should input a string as the userId';
-    let userObjId = ObjectId.createFromHexString(userId);
-    let userCollection = await users();
-    let userUpdateInfo = {
-        Admin:true
-    };
-    let updatedInfo = await userCollection.updateOne({ _id: userObjId }, { $set: userUpdateInfo });
-    if (updatedInfo.modifiedCount === 0) {
-        throw 'could not set Admin access successfully';
-    }
-    return this.getUserById(userId);
-};
-
-
+const helpcheck = require('../data/admin');
 
 async function registerUser(username,email,password){
     checkStr(email,'email');
@@ -31,13 +16,14 @@ async function registerUser(username,email,password){
         throw "username exists"
     }
     const hashPwd = await bcrypt.hash(password, 5);
-    let newUser = {
+    const newUser = {
         username:username,
         email:email,
         password:hashPwd,
         balance:0,
         vip:false
     }
+    // newUser.accountType = "user";
     const insertInfo = await userCollection.insertOne(newUser);
     if (insertInfo.insertedCount === 0){
         throw 'Could not add user';
@@ -146,6 +132,31 @@ async function beVIP(username){
 
 
 
+async function checkUser(userName, password) {
+    // check whether userName and password are provided or not
+    if(!userName || !password) {
+        throw 'userName or password not provided';
+    }
+    
+    // check whether userName and password are valid or not
+    helpcheck.isValidName(userName);
+    helpcheck.isValidPassword(password);
+    
+    const userCollection = await users();
+    userName = userName.toLowerCase();
+    const user = await userCollection.findOne({userName: userName});
+    if(user === null) {
+        return false;
+    } 
+
+    let result = await bcrypt.compare(password, user.password);
+    if(!result) return false
+    return true;
+
+}
+
 module.exports = {
     setAdminAccess,registerUser,getUserById,login,findUserByName,updateUserBalance,beVIP
+    ,getUserById,findUserByName,checkUser
+
 }

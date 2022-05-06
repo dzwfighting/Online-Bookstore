@@ -1,20 +1,20 @@
 <div id="form-container">
     <h1>Add A New Book</h1>
-    <form id="book-new" method="POST" action="/books/newBook">
+    <form id="book-new" method="POST" action="/book/newBook">
         <!-- Title -->
         <div class="form-elem">
             <label for ="title-input">Book Name:</label>
-            <input id="title-input" type="text" name="newTitle" placeholder="ex. The Red and The Black" value="{{bookName}}">
+            <input id="title-input" type="text" name="newBookName" placeholder="ex. The Red and The Black" value="{{bookName}}">
         </div>
         <!-- Image -->
         <div class="form-elem">
             <label for ="image-input">Book Cover URL:</label>
-            <input id="image-input" type="text" name="newImage" placeholder="must end in jpeg, jpg, png" value="{{bookCovers}}">
+            <input id="image-input" type="text" name="newBookCovers" placeholder="must end in jpeg, jpg, png" value="{{bookCovers}}">
         </div>
         <!-- Content -->
         <div class="form-elem">
             <label for ="content-input">Book content URL:</label>
-            <input id="content-input" type="text" name="newcontent" placeholder="" value="{{content}}">
+            <input id="content-input" type="text" name="newContent" placeholder="" value="{{content}}">
         </div>
         <!-- Author -->
         <div class="form-elem">
@@ -23,22 +23,22 @@
         </div>
         <!-- Release Year -->
         <div class="form-elem">
-            <label for ="releaseyear-input">publication Date:</label>
-            <input id="releaseyear-input" type="text" name="newReleaseYear" placeholder="ex. 2020" value="{{publicationDate}}">
+            <label for ="publicationDate-input">publication Date:</label>
+            <input id="publicationDate-input" type="text" name="newPublicationDate" placeholder="ex. 2020-01-02" value="{{publicationDate}}">
         </div>
         <!-- Genres -->
         <div class="form-elem" id="genre-div">
             <label for ="genre-input1">Genres:</label>
             <input id="genre-input1" type="text" name="newGenres[]" value="{{bookTag}}">
         </div>
-        <div class="center">
+        {{!-- <div class="center">
             <button id="new-genre" class="update-field" type="button"><img class="form-button" src="/public/img/add.png" alt="add genre"/></button>
             <button id="remove-genre" class="update-field" type="button"><img class="form-button" src="/public/img/sub.png" alt="remove genre"/></button>
-        </div>
+        </div> --}}
         <!-- Prices -->
         <div class="form-elem" id="price-div">
-            <label for ="price-input1">Prices:</label>
-            <input id="price-input1" type="text" name="newPrices[]" placeholder="ex. PC: $49.99" value="{{price}}">
+            <label for ="price-input1">Price:</label>
+            <input id="price-input1" type="text" name="newPrice" placeholder="ex. PC: $49.99" value="{{price}}">
         </div>
         <!-- Description -->
         <div class="form-elem">

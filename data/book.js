@@ -64,7 +64,7 @@ module.exports = {
         //genre will be an Object
         if (!bookTag) throw "You must provide book genre";
        
-        if (!price|| typeof price != 'string') throw "You must provide book price";
+        if (!price) throw "You must provide book price";
 
         if (!publicationDate|| typeof publicationDate != 'string') throw "You must provide a book publish time";
 
@@ -87,7 +87,7 @@ module.exports = {
                 description: description,
                 bookTag: bookTag,//Array
                 price:price,
-                publicationDate: new Date(publicationDate),
+                publicationDate: publicationDate,
                 content: content,
                 avgRating:0, //add avg rating
                 reviews:[],
@@ -98,7 +98,7 @@ module.exports = {
 
                 if (insertInfo.insertedCount === 0) throw "Fail to create book";
 
-                const newId = insertInfo.insertedId;
+                const newId = insertInfo.insertedId.toString();
                 const book = await this.get(newId);
               
 

@@ -1,18 +1,48 @@
 const usersData = require("../data/users");
+const adminData = require('../data/admin');
 const express = require("express");
 const mongoCollections = require("../config/mongoCollections");
 const router = express.Router();
-const user=mongoCollections.users
+const user = mongoCollections.users
 module.exports = router;
 const bcrypt = require('bcrypt')
 
 // router.get("/", async (req, res) => {
 //         if (req.session.user) {
-//             return res.redirect("/homepage");
+//             return res.redirect("/books");
 //         } else {
 //             return res.render("users/login", {title: "LogIn Page"});
 //         }
-//     });
+// });
+
+
+// router.post('/', async (req, res) => {
+//     if (!req.body.username
+//         || req.body.username.includes(' ')
+//         || !req.body.username.match(/^[0-9a-zA-Z]+$/)
+//         || req.body.username.length < 4){
+
+//         throw "You should input a valid userName"
+//     }
+//     if (!req.body.password || req.body.password.includes(' ') || req.body.password.length<6){
+//         throw "You should input a valid password"
+//     }
+
+    
+//     if(await adminDate.checkManager(req.body.username, req.body.password)){
+//         req.session.user = { username: req.body.username, accountType: 'admin' };
+//         res.redirect('/books')
+//         return
+//     }
+    
+//     return res.status(400).render("users/login",{
+//         hasErrors:true,
+//         error : e,
+//     })
+
+// });
+
+
 router.get("/signup", async (req, res) => {
         console.log("sign up")
 
@@ -56,7 +86,7 @@ router.get("/login", async (req, res) => {
         }else {
             return  res.render("users/login", {
                 title:"LogIn Page"
-            });
+            }); 
         }
     });
 
@@ -69,6 +99,18 @@ router.post("/login",async (req,res)=>{
                 userId:user.userId,
                 email:user.email
             };
+
+            //to check admin login
+            // if(await adminData.checkAdmin(req.body.username, req.body.password)){
+            // req.session.user = { username: req.body.username, accountType: 'admin' };
+            // res.redirect('/users/profile')
+            // return
+            // }
+            // else if (await usersData.checkUser(req.body.username, req.body.password)) {
+            // req.session.user = { username: req.body.username, accountType: 'user' };
+            // res.redirect('/users/profile')
+            // return
+            // }   
 
             return res.status(200).redirect("/users/profile")
         }catch (e){

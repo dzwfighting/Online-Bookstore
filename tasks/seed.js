@@ -1,21 +1,24 @@
-const dbConnection = require("../config/mongoConnection");
-const data = require("../data/");
-const books = data.books;
-const users = data.users;
-async function main() {
-  const db = await dbConnection();
-  await db.dropDatabase();
+const adminSeed = require('./seedAdmin');
+// const userSeed = require('./seedUsers');
+const reviewSeed = require('./seedReviews');
+const connection = require('../config/mongoConnection');
 
-  // await users.createUser();
-  // await users.createUser();
-  // await users.createUser();
-  // await users.createUser("Kajol", "Kajol", "KJ", "1995-12-20", "kacharya@stevens.edu", "98745631", "female");
-  // await users.createUser("Sonal", "Sonal123", "Sonal", "1997-11-21", "sonal@stevens.edu", "3698524", "female");
-  // await users.createUser("Test", "Test123", "test", "1998-02-20", "test@gmail.com", "92587631", "male");
- 
-  console.log("Done seeding database");
-  await db.serverConfig.close()
+console.log("Working on seeding your database...");
+
+const allCollections = [adminSeed, reviewSeed];
+
+const main = async () =>{
+    
+    for (const collection of allCollections) {
+        await collection.seed()
+  }
+  const db = await connection();
+  await db.serverConfig.close();
+
+  console.log("Your database has been seeded!");
 }
 
-
-main().catch(console.log);
+main().catch((e) => {
+  console.log(e);
+  }
+)

@@ -12,11 +12,11 @@ const constructorMethod = (app) => {
     app.use("/", homeRoutes);
     app.use("/book", bookRoutes);
 
-//     app.get('/', (req, res) => {
-//         res.redirect('/homePage');
-//     });
-//
-//
+    // Default page
+    app.get('/', (req, res) => {
+        res.redirect('/home');
+    });
+
     app.use("*", (req, res) => {
         res.status(500).redirect('/home');
     });
