@@ -132,16 +132,19 @@ router.get('/profile',async(req,res)=>{
            user:user
         })
 })
+
 router.get('/logout',async(req,res)=>{
     req.session.destroy();
     res.render('users/logout',{})
 })
+
 router.get('/recharge',async(req,res)=>{
     if(!req.session.user){
         return res.redirect('/')
     }
     res.render('users/recharge',{})
 })
+
 router.post('/recharge',async(req,res)=>{
     let amountStr=req.body.amount
     let amount=parseInt(amountStr)
@@ -154,6 +157,7 @@ router.post('/recharge',async(req,res)=>{
          res.render('users/rechargeResult',{message:"Recharge failed!",error:e})
     }
 })
+
 router.get('/vip',async(req,res)=>{
     if(!req.session.user){
         return res.redirect('/')
@@ -161,6 +165,7 @@ router.get('/vip',async(req,res)=>{
         return res.render('users/vip',{})
     }
 })
+
 router.post('/vip',async(req,res)=>{
     let inputPs=req.body.psd
     let sessUser=req.session.user
