@@ -2,6 +2,7 @@ const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 const {ObjectId} = require("mongodb");
 const bcrypt = require('bcrypt')
+const helpcheck = require('../data/admin');
 
 async function registerUser(username,email,password){
     checkStr(email,'email');
@@ -21,6 +22,7 @@ async function registerUser(username,email,password){
         balance:0,
         vip:false
     }
+    newUser.accountType = "user";
     const insertInfo = await userCollection.insertOne(newUser);
     if (insertInfo.insertedCount === 0){
         throw 'Could not add user';
@@ -93,6 +95,29 @@ async function findUserByName(username){
 
 }
 
+async function checkUser(userName, password) {
+    // check whether userName and password are provided or not
+    if(!userName || !password) {
+        throw 'userName or password not provided';
+    }
+    
+    // check whether userName and password are valid or not
+    helpcheck.isValidName(userName);
+    helpcheck.isValidPassword(password);
+    
+    const userCollection = await users();
+    userName = userName.toLowerCase();
+    const user = await userCollection.findOne({userName: userName});
+    if(user === null) {
+        return false;
+    } 
+
+    let result = await bcrypt.compare(password, user.password);
+    if(!result) return false
+    return true;
+
+}
+
 module.exports = {
-    registerUser,getUserById,login,findUserByName
+    registerUser,getUserById,login,findUserByName, checkUser
 }
