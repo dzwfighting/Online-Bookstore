@@ -30,14 +30,12 @@ router.post('/newBook', async (req, res) => {
           
             if(typeof req.body.bookName !== 'undefined' && typeof req.body.author !== 'undefined' 
             && typeof req.body.description !== 'undefined' && typeof req.body.bookTag !== 'undefined' 
-            && typeof req.body.price !== 'undefined' && req.file.path !== 'undefined'
-            && req.body.publicationDate !== 'undefined' ){
+            && typeof req.body.price !== 'undefined'&& req.body.publicationDate !== 'undefined' ){
                
               const book = await bookData.create(req.body.bookName, req.body.author, 
                 eq.body.description, req.body.bookTag, req.body.price,  
                 req.body.bookCovers, req.body.publicationDate, req.body.content)
           
-             
               res.status(200).json({
                  message:"Create book successfully",
                  book: book
@@ -58,10 +56,10 @@ router.post('/newBook', async (req, res) => {
  */
   router.get('/newBook', async (req, res) => {
     try {
-        if (!req.session.user_id) {
+        if (!req.session.user) {
             res.redirect('users/login');
         } else {
-            res.render('book/newBook', { title: "Add Book" , signed_in: req.body.signed_in, partial:'BookForm'});
+            res.render('book/newBook');
         }
     } catch (e) {
         res.status(500).json({

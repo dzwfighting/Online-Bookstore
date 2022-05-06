@@ -64,7 +64,7 @@ module.exports = {
         //genre will be an Object
         if (!bookTag) throw "You must provide book genre";
        
-        if (!price|| typeof price != 'string') throw "You must provide book price";
+        if (!price) throw "You must provide book price";
 
         if (!publicationDate|| typeof publicationDate != 'string') throw "You must provide a book publish time";
 
