@@ -33,7 +33,7 @@ router.post('/newBook', async (req, res) => {
             && typeof req.body.price !== 'undefined'&& req.body.publicationDate !== 'undefined' ){
                
               const book = await bookData.create(req.body.bookName, req.body.author, 
-                eq.body.description, req.body.bookTag, req.body.price,  
+                req.body.description, req.body.bookTag, req.body.price,  
                 req.body.bookCovers, req.body.publicationDate, req.body.content)
           
               res.status(200).json({
