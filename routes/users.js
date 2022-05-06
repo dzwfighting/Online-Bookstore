@@ -1,8 +1,9 @@
 const usersData = require("../data/users");
+const adminData = require('../data/admin');
 const express = require("express");
 const mongoCollections = require("../config/mongoCollections");
 const router = express.Router();
-const user=mongoCollections.users
+const user = mongoCollections.users
 module.exports = router;
 
 // router.get("/", async (req, res) => {
@@ -15,21 +16,20 @@ module.exports = router;
 
 
 // router.post('/', async (req, res) => {
-//     const loginForm = req.body
-//     if (!loginForm.username
-//         || loginForm.username.includes(' ')
-//         || !loginForm.username.match(/^[0-9a-zA-Z]+$/)
-//         || loginForm.username.length < 4){
+//     if (!req.body.username
+//         || req.body.username.includes(' ')
+//         || !req.body.username.match(/^[0-9a-zA-Z]+$/)
+//         || req.body.username.length < 4){
 
 //         throw "You should input a valid userName"
 //     }
-//     if (!loginForm.password || loginForm.password.includes(' ') || loginForm.password.length<6){
+//     if (!req.body.password || req.body.password.includes(' ') || req.body.password.length<6){
 //         throw "You should input a valid password"
 //     }
 
     
-//     if(await adminDate.checkManager(loginForm.username, loginForm.password)){
-//         req.session.user = { username: loginForm.username, accountType: 'admin' };
+//     if(await adminDate.checkManager(req.body.username, req.body.password)){
+//         req.session.user = { username: req.body.username, accountType: 'admin' };
 //         res.redirect('/books')
 //         return
 //     }
@@ -100,8 +100,13 @@ router.post("/login",async (req,res)=>{
             };
 
             //to check admin login
-            if(await adminDate.checkManager(loginForm.username, loginForm.password)){
-            req.session.user = { username: loginForm.username, accountType: 'admin' };
+            if(await adminData.checkAdmin(req.body.username, req.body.password)){
+            req.session.user = { username: req.body.username, accountType: 'admin' };
+            res.redirect('/books')
+            return
+            }
+            else if (await usersData.checkUser(req.body.username, req.body.password)) {
+            req.session.user = { username: req.body.username, accountType: 'user' };
             res.redirect('/books')
             return
         }
