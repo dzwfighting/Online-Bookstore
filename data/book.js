@@ -87,7 +87,7 @@ module.exports = {
                 description: description,
                 bookTag: bookTag,//Array
                 price:price,
-                publicationDate: new Date(publicationDate),
+                publicationDate: publicationDate,
                 content: content,
                 avgRating:0, //add avg rating
                 reviews:[],
@@ -98,7 +98,7 @@ module.exports = {
 
                 if (insertInfo.insertedCount === 0) throw "Fail to create book";
 
-                const newId = insertInfo.insertedId;
+                const newId = insertInfo.insertedId.toString();
                 const book = await this.get(newId);
               
 
