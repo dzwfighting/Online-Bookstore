@@ -69,6 +69,11 @@ router.post('/newBook', async (req, res) => {
         })
     }
 }); 
+
+router.get('/search',async (req,res)=>{
+  return res.render('book/searchPage',{})
+})
+
 //get book by id
 router.get("/:id", async (req, res) => { 
     try{
@@ -83,5 +88,6 @@ router.get("/:id", async (req, res) => {
     
      
 });
+
 
 module.exports = router;

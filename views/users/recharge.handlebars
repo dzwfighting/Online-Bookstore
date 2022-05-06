@@ -1,0 +1,64 @@
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1309180_m0vigzfu7y.css">
+    <style type="text/css">
+        .bod1
+        {
+            /*background: -webkit-linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);*/
+            /*background-image: url(" 2558.jpg");*/
+            /*background-size:cover;*/
+            background: #aa4b6b;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        .search-box
+        {
+            text-align: center;
+	        width: 300px;
+	        height: 200px;
+	        margin: auto;
+	        position: absolute;
+	        top: 0;
+	        left: 0;
+	        right: 0;
+	        bottom: 0;
+        }
+        #subBtn:hover{
+            background-color:#aa4b6b;
+        }
+        
+       
+ 
+    </style>
+</head>
+<body class="bod1">
+
+<div class="search-box">
+    <form action="/users/recharge" method="POST">
+      <label for="number">
+          Input the amount you want to recharge
+          <input type="number" name="amount" id="number">
+      </label>
+      <button type="submit" id="subBtn">Recharge</button>
+    </form>
+</div>
+</body>
+<script>
+    $(function(){
+      var inputAmount=$("input")
+      $("#subBtn").click(function(){
+          if(inputAmount.val()<=0){
+              alert("Please provide a amount positive.")
+              return false
+          }
+          if(inputAmount.val()>1000){
+              alert("Maximum amount is $1000 for once.")
+              return false
+          }
+          if(inputAmount.val()%1!==0){
+              alert("Please provide an integer amount. ")
+              return false
+          }
+      })
+    });
+</script>

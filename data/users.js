@@ -109,7 +109,43 @@ async function findUserByName(username){
     }
 
 }
+async function updateUserBalance(username,balance){
+    let preUser=await findUserByName(username)
+    let prevBalance=preUser.balance
+    let curBalance=prevBalance+balance
+    let newUser={
+        balance:curBalance
+    }
+    const usersCollection=await users()
+    const updatedInfo=await usersCollection.updateOne({username:username},{$set:newUser})
+    if(updatedInfo.modifiedCount===0){
+        throw 'Could not be updated'
+    }
+    let curUser=await findUserByName(username)
+    return curUser
+}
+async function beVIP(username){
+    let preUser=await findUserByName(username)
+    let prevBalance=preUser.balance
+    let curBalance=prevBalance-10
+    let newUser={
+        balance:curBalance,
+        vip:true
+    }
+    const usersCollection=await users()
+    const updatedInfo=await usersCollection.updateOne({username:username},{$set:newUser})
+    if(updatedInfo.modifiedCount===0){
+        throw 'Could not be updated'
+    }
+    let curUser=await findUserByName(username)
+    return curUser
+}
+
+
+
+
+
 
 module.exports = {
-    setAdminAccess,registerUser,getUserById,login,findUserByName
+    setAdminAccess,registerUser,getUserById,login,findUserByName,updateUserBalance,beVIP
 }

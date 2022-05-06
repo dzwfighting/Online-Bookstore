@@ -4,6 +4,7 @@ const mongoCollections = require("../config/mongoCollections");
 const router = express.Router();
 const user=mongoCollections.users
 module.exports = router;
+const bcrypt = require('bcrypt')
 
 // router.get("/", async (req, res) => {
 //         if (req.session.user) {
@@ -78,6 +79,9 @@ router.post("/login",async (req,res)=>{
         }
     });
 router.get('/profile',async(req,res)=>{
+        if(!req.session.user){
+            return res.redirect("/")
+        }
         let saveduser={}
         saveduser=req.session.user
         username=saveduser.username
@@ -86,7 +90,55 @@ router.get('/profile',async(req,res)=>{
            user:user
         })
 })
+router.get('/logout',async(req,res)=>{
+    req.session.destroy();
+    res.render('users/logout',{})
+})
+router.get('/recharge',async(req,res)=>{
+    if(!req.session.user){
+        return res.redirect('/')
+    }
+    res.render('users/recharge',{})
+})
+router.post('/recharge',async(req,res)=>{
+    let amountStr=req.body.amount
+    let amount=parseInt(amountStr)
+    let user=req.session.user
+    let username=user.username
+    try{
+        let curUser=await usersData.updateUserBalance(username,amount)
+        res.render('users/rechargeResult',{message:"Recharge Success!"})
+    }catch(e){
+         res.render('users/rechargeResult',{message:"Recharge failed!",error:e})
+    }
+})
+router.get('/vip',async(req,res)=>{
+    if(!req.session.user){
+        return res.redirect('/')
+    }else{
+        return res.render('users/vip',{})
+    }
+})
+router.post('/vip',async(req,res)=>{
+    let inputPs=req.body.psd
+    let sessUser=req.session.user
+    let user=await usersData.findUserByName(sessUser.username)
+    if(user.vip){
+        return res.status(400).render('users/vip',{message:"You are already a VIP."})
+    }
+    if(await bcrypt.compare(inputPs,user.password)){
+        try{
+            await usersData.beVIP(user.username)
+            return res.status(200).render('users/rechargeResult',{message:"You have been vip successfully!"})
+        }catch(e){
+            return res.status(400).render('users/rechargeResult',{error:e})
+        }
+    }else{
+        return res.status(400).render('users/vip',{message:"Password is not correct."})
+    }
 
+
+})
 
 
 

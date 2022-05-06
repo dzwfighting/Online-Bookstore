@@ -5,33 +5,47 @@
  </div>
  <div class="name">{{user.username}}
      <div style="display:inline" class="vip">
-         <img src="/public/static/vip.png">
+         {{#if user.vip}}
+         <img src="/public/static/vip.svg" id="vipPic">
+         {{/if}}
      </div>
  </div>
  <div class="desc">{{user.email}}</div>
  <div class="sm">
- <a href="#" class="fab fa-facebook-f"></a>
- <a href="#" class="fab fa-twitter"></a>
- <a href="#" class="fab fa-github"></a>
- <a href="#" class="fab fa-youtube"></a>
+     <ul>
+         <li>
+             <a href="#" class="buyBooks">Buy Books</a>
+         </li>
+         <li>
+             <a href="/users/recharge" class="recharge">Recharge</a>
+         </li>
+         <li>
+             <a href="/users/vip" class="beVIP">Be VIP</a>
+         </li>
+         <li>
+             <a href="#" class="myBookShelf">My Bookshelf</a>
+         </li>
+         <li>
+             <a href="/users/logout" class="logOut">Log Out</a>
+         </li>
+
+     </ul>
  </div>
- <a href="#" class="contact-btn">Contact Me</a>
+ <a href="/book/search" class="contact-btn">Search Book</a>
  </div>
  <div class="card-footer">
  <div class="numbers">
  <div class="item">
- <span>120</span>
- Posts
+ <span>${{user.balance}}</span>
+ Balance
  </div>
  <div class="border"></div>
  <div class="item">
- <span>127</span>
- Following
+ <a href="#">My Reviews</a>
  </div>
  <div class="border"></div>
  <div class="item">
- <span>120K</span>
- Followers
+ <a href="#">My Purchase History</a>
  </div>
  </div>
  </div>
