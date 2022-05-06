@@ -1,10 +1,11 @@
 const mongoCollections = require('../config/mongoCollections');
 const { ObjectId } = require('mongodb');
 const admin = mongoCollections.admin;
+//const userDate = require('./users');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
 
-async function createAdmin(userName, streetAddress, city, state, zip, email, phone, password) {
+async function createAdmin(userName, email, password) {
 
     let newAdmin = { userName, email, password };
     adminFieldChecker(newAdmin);
@@ -144,10 +145,6 @@ function isValidName(name) {
 }
 
 function isValidPassword(password) {
-    if(typeof password !== 'string') {
-        throw 'password must be a string';
-    }
-
     var pwdRegex = /\S{8,}$/;
     const valid = pwdRegex.test(password);
     if(!valid) {
@@ -173,3 +170,4 @@ function adminFieldChecker(params) {
 }
 
 module.exports = {createAdmin, checkAdmin, getAdminIdByName, getAdminByName, addBookToAdmin, isAdmin, userIsAdmin}
+//module.exports = {isValidName, isValidPassword, checkAdmin, getAdminIdByName, getAdminByName, addBookToAdmin, isAdmin, userIsAdmin}
