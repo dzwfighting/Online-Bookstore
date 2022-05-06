@@ -3,23 +3,6 @@ const users = mongoCollections.users;
 const {ObjectId} = require("mongodb");
 const bcrypt = require('bcrypt')
 
-async function setAdminAccess(userId) {
-    if (!userId || typeof userId !== "string")
-        throw 'you should input a string as the userId';
-    let userObjId = ObjectId.createFromHexString(userId);
-    let userCollection = await users();
-    let userUpdateInfo = {
-        Admin:true
-    };
-    let updatedInfo = await userCollection.updateOne({ _id: userObjId }, { $set: userUpdateInfo });
-    if (updatedInfo.modifiedCount === 0) {
-        throw 'could not set Admin access successfully';
-    }
-    return this.getUserById(userId);
-};
-
-
-
 async function registerUser(username,email,password){
     checkStr(email,'email');
     checkStr(username,'username');
@@ -111,5 +94,5 @@ async function findUserByName(username){
 }
 
 module.exports = {
-    setAdminAccess,registerUser,getUserById,login,findUserByName
+    registerUser,getUserById,login,findUserByName
 }
