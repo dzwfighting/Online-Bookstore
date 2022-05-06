@@ -1,5 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
+const admin = mongoCollections.admin;
 const {ObjectId} = require("mongodb");
 const bcrypt = require('bcrypt')
 const helpcheck = require('../data/admin');
@@ -15,14 +16,14 @@ async function registerUser(username,email,password){
         throw "username exists"
     }
     const hashPwd = await bcrypt.hash(password, 5);
-    let newUser = {
+    const newUser = {
         username:username,
         email:email,
         password:hashPwd,
         balance:0,
         vip:false
     }
-    newUser.accountType = "user";
+    // newUser.accountType = "user";
     const insertInfo = await userCollection.insertOne(newUser);
     if (insertInfo.insertedCount === 0){
         throw 'Could not add user';

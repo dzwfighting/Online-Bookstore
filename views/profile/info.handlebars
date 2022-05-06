@@ -4,30 +4,6 @@
  <img src="/public/static/logo.jpeg" alt="No image">
  </div>
 
-{{!-- If you are admin, you will see this page --}}
- {{#if isAdmin}}
-<div class="pl-4"><h1>Manage books</h1></div>
-  {{#if books.length}}
-    {{#each books}}  
-    <h2>{{bookName}}</h2>
-    <div class="pl-4">
-      <ul>
-        <li class="mb-2">
-          <a href="/orders/placed/{{_id}}" class="ord_color">Add Books</a>
-        </li>
-        <li class="mb-2">
-          <a href="/orders/completed/{{_id}}" class="ord_color">Delete Books</a>
-        </li>
-        <li class="mb-2">
-          <a href="/books/{{_id}}/reviews" class="ord_color">View Sales</a>
-        </li>
-      </ul>
-    </div>
-    {{/each}}
-  {{/if}}
-  
-  {{!-- If you are user, you will see this page --}}
-  {{else}}
     <div class="name">{{user.username}}
         <div style="display:inline" class="vip">
             <img src="/public/static/vip.png">
@@ -61,5 +37,4 @@
     </div>
     </div>
     </div>
-{{/if}}
  <link rel="stylesheet" type="text/css" href="/public/css/profile.css"> 
