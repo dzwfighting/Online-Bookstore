@@ -100,16 +100,16 @@ router.post("/login",async (req,res)=>{
             };
 
             //to check admin login
-            if(await adminData.checkAdmin(req.body.username, req.body.password)){
-            req.session.user = { username: req.body.username, accountType: 'admin' };
-            res.redirect('/books')
-            return
-            }
-            else if (await usersData.checkUser(req.body.username, req.body.password)) {
-            req.session.user = { username: req.body.username, accountType: 'user' };
-            res.redirect('/books')
-            return
-        }
+            // if(await adminData.checkAdmin(req.body.username, req.body.password)){
+            // req.session.user = { username: req.body.username, accountType: 'admin' };
+            // res.redirect('/users/profile')
+            // return
+            // }
+            // else if (await usersData.checkUser(req.body.username, req.body.password)) {
+            // req.session.user = { username: req.body.username, accountType: 'user' };
+            // res.redirect('/users/profile')
+            // return
+            // }   
 
             return res.status(200).redirect("/users/profile")
         }catch (e){
