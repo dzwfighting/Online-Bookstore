@@ -1,6 +1,6 @@
-<div id="form-container">
-    <h1>Add A New Book</h1>
-    <form id="book-new" method="POST" action="/book/newBook">
+<head><link rel="stylesheet" href="/public/css/newBook.css" /></head>
+<div class="form-container">
+    <form class="book-new" method="POST" action="/book/newBook">
         <!-- Title -->
         <div class="form-elem">
             <label for ="title-input">Book Name:</label>
@@ -45,7 +45,7 @@
             <label for ="description-input">Description:</label>
             <textarea name="newDesc" rows="10" cols="72" id="description-input"></textarea>
         </div>
-        <div class="center">
+        <div class="contact-btn">
             <button id="new-submit" type="submit">Submit</button>
         </div>
     </form>
