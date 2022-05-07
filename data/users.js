@@ -156,7 +156,7 @@ async function checkUser(userName, password) {
 }
 
 module.exports = {
-    setAdminAccess,registerUser,getUserById,login,findUserByName,updateUserBalance,beVIP
+    registerUser,getUserById,login,findUserByName,updateUserBalance,beVIP
     ,getUserById,findUserByName,checkUser
 
 }

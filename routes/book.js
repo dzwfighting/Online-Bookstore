@@ -142,11 +142,22 @@ router.post('/newBook', async (req, res) => {
         })
     }
 }); 
-
+router.get('/getAll',async(req,res)=>{
+  try{
+    let bookArr=await bookData.getAll()
+    return res.status(200).json({bookArr:bookArr})
+  }catch(e){
+    return res.status(400).json({error:e})
+  }
+})
 router.get('/search',async (req,res)=>{
   return res.render('book/searchPage',{})
 })
-
+router.post('/result',async(req,res)=>{
+  let bookName=req.body.term
+  let bookArr=await bookData.searchBook(bookName)
+  return res.status(200).json({bookArr:bookArr})
+})
 //get book by id
 router.get("/:id", async (req, res) => { 
     try{

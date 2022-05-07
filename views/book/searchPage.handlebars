@@ -26,15 +26,19 @@
         #subBtn:hover{
             background-color:#aa4b6b;
         }
+        a{
+            color: black;
+        }
         
-       
- 
     </style>
+    <h1 align="center">Welcome to Book Search Page</h1>
+
 </head>
 <body class="bod1">
 
 <div class="search-box">
-    <form action="'/book/result" method="POST">
+    <h1 id="errorMessage" hidden></h1>
+    <form id="searchForm">
       <label for="'inputbookname">
           Input the book you want to find
           <input type="text" name="bookname" id="inputbookname">
@@ -42,4 +46,12 @@
       <button type="submit" id="subBtn">Find</button>
     </form>
 </div>
+<ul id="showList" hidden></ul>
+
+<div id="show" hidden></div>
+<a href="/book/search" id="homeLink" hidden>Back to All Books</a>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
 </body>
+<script src="/public/js/searchPage.js"></script>
+
