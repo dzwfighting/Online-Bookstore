@@ -37,7 +37,10 @@ router.post('/login', async (req, res) =>{
                 break;
             }
         }
-        res.status(401).render('admin/login', {message: "Invalid username or password", partial: 'login-script'});
+        return res.status(400).render("admin/login",{
+                hasErrors:true,
+                error : "Invalid admin username or password, please try again",
+        })
     }
 });
 
