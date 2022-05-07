@@ -1,4 +1,4 @@
-<!--<script src="/public/js/fullpage.js"></script>-->
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <div id="fullpage">
 <nav >
@@ -13,11 +13,34 @@
     </div>
 </nav>
     <div class="section" id="section0">
-        <h1 id="title" style="display:none">{{title}}</h1>
         <p class="title wow fadeIn">Duck Books,</p>
         <p class="title wow fadeIn">Read life anytime.</p>
         <p class="subtitle wow fadeIn" data-wow-delay=".7s">Buy anywhere. Read anywhere.</p>
         <a class="btn_signup wow fadeIn" data-wow-delay=".7s" href="/users/signup">Sign up</a>
+    </div>
+
+</div>
+<div id="fullpage1" >
+    <div class="section" id="section1">
+        <section class="flex-center">
+            <h1 id="title" style="display:none">{{title}}</h1>
+            <p class="subtitle wow fadeIn" data-wow-delay=".7s">{{content}}</p>
+            <div class="tabs book clearfix">
+            {{#if books }}
+                {{#each books}}
+                <dl>
+                    <dt><a href="book/{{this._id}}"><img src="{{this.bookCovers}}" alt="Image"/></a></dt>
+                    <dd >
+                        <p><a href="book/{{this._id}}">{{this.bookName}}</a></p>
+                        <p>Price : {{this.price}} $</p>
+                    </dd>
+                </dl>
+                {{/each}}
+            {{else}}
+                <p class="subtitle wow fadeIn" data-wow-delay=".7s">No books are currently updated .</p>
+            {{/if}}
+            </div>
+        </section>
     </div>
 </div>
 
