@@ -32,6 +32,15 @@
                 <input type="password" class="form-control" id="comfirm" name="comfirm" placeholder="Comfirm password" value="{{comfirm}}">
             </div>
 
+            <div class="">
+            <label id="user" class="user_label">User
+            <input type = "radio" name="ifAdmin" value="false"/>
+            </label>
+            <label id="admin">Admin
+            <input type = "radio" name="ifAdmin" value="true"/>
+            </label>
+            </div>
+
             {{#if hasErrors }}
                 <div class="form-group">
                     <ul class="error-list" style="padding-inline-start: 0px;">

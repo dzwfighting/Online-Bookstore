@@ -1,54 +1,92 @@
 const mongoCollections = require('../config/mongoCollections');
 const { ObjectId } = require('mongodb');
 const admin = mongoCollections.admin;
-//const userDate = require('./users');
+const userDate = require('./users');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
 
-async function createAdmin(userName, email, password) {
-
-    let newAdmin = { userName, email, password };
-    adminFieldChecker(newAdmin);
-
-    newAdmin.accoutType = "admin";
-    userName = userName.toLowerCase();
-    newAdmin.userName = userName;
+async function createAdmin(username, email, password) {
+    isValidEmail(email);
+    if(!username || !password) {
+        throw 'username or password not provided';
+    }
+    isValidName(username);
+    isValidPassword(password);
     
-    let adminOperate = null
-    try{
-        adminOperate = await getAdminByName(userName)
-    }catch(e){
-        //pass
+    let checkExist = await adminCollection.find({username: username}).toArray();
+
+    if(checkExist.length>=1){
+        throw "admin exists"
     }
-    if(adminOperate){
-        throw `Username already exists!`
+    const hashPwd = await bcrypt.hash(password, 5);
+    const newAdmin = {
+        username:username,
+        email:email,
+        password: hashPwd,
     }
+    newAdmin.ifAdmin = true;
 
     const adminCollection = await admin();
-    const insertInfo = await adminCollection.insertOne(newadmin);
-    if(insertInfo.insertedCount === 0)  { 
-        throw 'creating new user failed'; 
+    const insertInfo = await adminCollection.insertOne(newAdmin);
+    if (insertInfo.insertedCount === 0){
+        throw 'Could not add admin';
     }
-
+    // const newId = insertInfo.insertedId;
+    // return this.getAdminById(newId);
     return { adminInserted: true };
 }
 
-async function checkAdmin(userName, password) {
-    if(!userName || !password) {
-        throw 'userName or password not provided';
-    }
-    isValidName(userName);
-    isValidPassword(password);
-    userName = userName.toLowerCase();
+async function getAdminById(adminId){
+    if (!adminId) throw 'adminId must be provided';
+    
+    if (typeof adminId != 'string' || !adminId.trim()) throw 'the input adminId is invalid';
+    let parsedAdminId = ObjectId(adminId);
     const adminCollection = await admin();
-    const admin = await adminCollection.findOne({userName: userName});
-    if(admin === null) {
-        return false;
-    }
-    let result = await bcrypt.compare(password, admin.password);
-    if(!result) return false
-    return true;
+    let adminInfo = await adminCollection.findOne({_id:parsedAdminId});
+    if (!adminInfo || adminInfo === null) throw 'no admin with the provided id';
+    return adminInfo;
 }
+
+async function getAllAdmin(){
+    const adminCollection = await admin();
+    let allAdmin = await adminCollection.find({}).toArray();
+    return allAdmin;
+}
+
+async function isManager(username){
+    if(!username) {
+        throw "username not supplied";
+    }
+    isValidName(username);
+    const adminCollection = await admin();
+    let find = adminCollection.findOne({userName: username})
+
+    if(find){
+        return true
+    }
+
+    return false
+}
+
+
+
+
+// async function checkAdmin(username, password) {
+//     if(!username || !password) {
+//         throw 'username or password not provided';
+//     }
+//     isValidName(username);
+//     isValidPassword(password);
+//     username = username.toLowerCase();
+//     const adminCollection = await admin();
+//     const admin = await adminCollection.findOne({username: username});
+//     if(admin === null) {
+//         return false;
+//     }
+//     let result = await bcrypt.compare(password, admin.password);
+//     if(!result) return false
+//     return true;
+// }
 
 async function getAdminIdByName(adminName) {
 
@@ -58,7 +96,7 @@ async function getAdminIdByName(adminName) {
     isValidName(adminName);
     
     const adminCollection = await admin();
-    const admin = await adminCollection.findOne({ userName: adminName });
+    const admin = await adminCollection.findOne({ username: adminName });
     if(admin === null) {
         throw "admin not found";
     }
@@ -73,7 +111,7 @@ async function getAdminByName(adminName) {
    
     isValidName(adminName);
     const adminCollection = await admin();
-    const admin = await adminCollection.findOne({userName: adminName});
+    const admin = await adminCollection.findOne({username: adminName});
     if(admin === null) {
         throw "admin not found";
     }
@@ -94,7 +132,7 @@ async function addBookToAdmin(bookId, adminName) {
     }
 
     const adminCollection = await admin();
-    let updateInfo = await adminCollection.updateOne({userName: adminName}, {$push: {books: bookId}});
+    let updateInfo = await adminCollection.updateOne({username: adminName}, {$push: {books: bookId}});
     if(updateInfo.matchedCount === 0) throw `Failed to add book to admin: ${adminName}.`
     return { addbook: true};
 }
@@ -105,7 +143,7 @@ async function isAdmin(username) {
     }
     isValidName(username);
     const adminCollection = await admin();
-    let find = adminCollection.findOne({userName: username})
+    let find = adminCollection.findOne({username: username})
 
     if(find){
         return true
@@ -114,15 +152,15 @@ async function isAdmin(username) {
     return false
 }
 
-async function userIsAdmin(userName, bookId){
-    if(!userName || !bookId) {
-        throw "userName or bookId not supplied";
+async function userIsAdmin(username, bookId){
+    if(!username || !bookId) {
+        throw "username or bookId not supplied";
     }
-    isValidName(userName);
+    isValidName(username);
     
-    let admin = null
+    const admin = null
     try{
-        admin = await getAdminByName(userName)
+        admin = await getAdminByName(username)
     }
     catch(e){
         return false
@@ -145,12 +183,25 @@ function isValidName(name) {
 }
 
 function isValidPassword(password) {
-    var pwdRegex = /\S{8,}$/;
-    const valid = pwdRegex.test(password);
+    // var pwdRegex = /\S{8,}$/;
+    // const valid = pwdRegex.test(password);
+    // if(!valid) {
+    //     throw 'password not valid';
+    // }
+}
+
+function isValidEmail(email) {
+    if(typeof email !== 'string') {
+        throw "email must be a string";
+    }
+
+    var emailRegex = /[a-zA-Z0-9_]{3,}@[a-z0-9]{3,}\.com$/;
+    const valid = emailRegex.test(email);
     if(!valid) {
-        throw 'password not valid';
+        throw `${email} is not vlaid for email`;
     }
 }
+
 
 function isFieldExistChecker(param, paramName) {
     if(!param || param === undefined) {
@@ -159,15 +210,16 @@ function isFieldExistChecker(param, paramName) {
 }
 
 function adminFieldChecker(params) {
-    let allParams = ['userName', 'password'];  
+    let allParams = ['username', 'password'];  
     
     for(let key of allParams) {
         isFieldExistChecker(params[key], key);
     }
     
-    isValidName(params.userName);
+    isValidName(params.username);
     isValidPassword(params.password);
 }
 
-module.exports = {createAdmin, checkAdmin, getAdminIdByName, getAdminByName, addBookToAdmin, isAdmin, userIsAdmin}
+// module.exports = {createAdmin, checkAdmin, getAdminIdByName, getAdminByName, addBookToAdmin, isAdmin, userIsAdmin}
 //module.exports = {isValidName, isValidPassword, checkAdmin, getAdminIdByName, getAdminByName, addBookToAdmin, isAdmin, userIsAdmin}
+module.exports = {createAdmin, getAdminById, getAllAdmin, isManager}
