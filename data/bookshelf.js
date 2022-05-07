@@ -15,11 +15,11 @@ module.exports = {
               if(typeof(userid) === 'string' || typeof(bookid) === 'string' ){
                 if(ObjectId.isValid(userid)&&ObjectId.isValid(bookid)){
                   var userobj = new ObjectId(userid)
-                  var bookobj = new ObjectId(bookid)
+                  // var bookobj = new ObjectId(bookid)
                   const userCollection = await users();
                     var updatedUser = {
                           $push:{
-                              bookshelf:{ id:bookobj }
+                              bookshelf:{ id:bookid }
                           }
                       };
                       var updatedInfo = await userCollection.updateOne({ _id: userobj }, updatedUser);

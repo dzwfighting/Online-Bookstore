@@ -8,23 +8,21 @@ const path = require('path');
 const xss = require('xss');
 
 //add book to bookshelf
-router.post("/add", async (req, res) => {
+router.post("/add/:bookId", async (req, res) => {
  
     try{
-      console.log("inbookshelf");
-      const bookId = req.query.bookId;
-      console.log("1");
-      const userId = req.cookies.userid;
-      console.log("2");
+      const bookId = req.params.bookId;
+      const userId = req.session.user.userId;
       const addInfo = await bookshelfData.addItem(userId, bookId);
       res.status(200).redirect("/bookshelf/"+userId);
    
     }catch(e){
-      const userId = req.cookies.userid;
+
+    //   const userId = req.cookies.userid;
       errarr=[]
       errarr.push(e)
-  
-      res.status(400).redirect("/bookshelf/"+userId); 
+        res.status(400).json(errarr);
+    //   res.status(400).redirect("/bookshelf/"+userId); 
    
     }
   });
@@ -40,7 +38,7 @@ router.get("/:id", async (req, res) => {
         //     bookNames.push(i[0]);
         // }
         for(var i = 0; i < userInfo.bookshelf.length; i++){
-            bookInfo = await bookData.get(userInfo.bookshelf[i].toString());
+            bookInfo = await bookData.get(userInfo.bookshelf[i].id.toString());
             bookNames.push(bookInfo.bookName);
             bookContents.push(bookInfo.content);
             bookCoverss.push(bookInfo.bookCovers);
