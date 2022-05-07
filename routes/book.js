@@ -165,12 +165,25 @@ router.get("/:id", async (req, res) => {
 
     }catch(e){
         res.status(400).json(
-            "hey, something wrong"
-          )
+            e
+          );
     }
     
      
 });
+//Add rating to the book with bookId
+router.post("/addRating/:bookId", async (req, res) => {
+    try{
+        const rating = req.body.rating;
+        const bookId = req.params.bookId;
+        const updateRating = await bookData.updateBookRating(bookId,rating);
+        res.status(200).redirect(`/book/${bookId}`);
+    }catch (e) {
+        res.status(400).json(
+            e
+          );
+    }
 
+})
 
 module.exports = router;

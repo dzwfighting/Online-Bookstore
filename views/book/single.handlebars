@@ -34,6 +34,15 @@
                             <img src="/public/img/bookshelf.png" alt="Icon">Add to Bookshelf</button>
                     </form>
             </div>
+            <form class="addRating" method="POST" action="/book/addRating/{{book._id}}">
+                <div class="form-elem">
+                    <label for ="title-input">Your Rating:</label>
+                    <input id="title-input" type="text" name="rating" placeholder="0-5" value="{{rating}}">
+                </div>         
+                <div class="contact-btn">
+                    <button id="new-submit" type="submit">Submit</button>
+                </div>       
+            </form>
         </div>
 
         <h2>User Reviews</h2>
