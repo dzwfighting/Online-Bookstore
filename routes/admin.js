@@ -6,6 +6,7 @@ const usersData = data.users;
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
 const xss = require('xss');
+const { admin } = require('../data');
 
 
 router.get('/login', async (req, res) =>{
@@ -42,6 +43,23 @@ router.post('/login', async (req, res) =>{
                 error : "Invalid admin username or password, please try again",
         })
     }
+});
+
+// add book
+router.get('/book/newBook', async (req, res) => {
+    if(req.session.adminId){
+        let userInformation = await admin.getAdminById(req.session.adminId);
+        res.render('book/newBook', {userInformation, partial:"addDailyData-script", admin: true});
+    }
+    else {
+        res.render('admin/adminLogin', {
+            title: 'admin Login',
+            partial: 'login-script',
+            message: "Add failed, please try again",
+            error: e
+        });
+    }
+
 });
 
 
