@@ -1,6 +1,5 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
-const admin = mongoCollections.admin;
 const {ObjectId} = require("mongodb");
 const bcrypt = require('bcrypt')
 const helpcheck = require('../data/admin');
