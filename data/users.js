@@ -1,9 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
-const admin = mongoCollections.admin;
 const {ObjectId} = require("mongodb");
 const bcrypt = require('bcrypt')
-const helpcheck = require('../data/admin');
 
 async function registerUser(username,email,password){
     checkStr(email,'email');
@@ -21,9 +19,8 @@ async function registerUser(username,email,password){
         email:email,
         password:hashPwd,
         balance:0,
-        vip:false
+        vip: false,
     }
-    // newUser.accountType = "user";
     const insertInfo = await userCollection.insertOne(newUser);
     if (insertInfo.insertedCount === 0){
         throw 'Could not add user';
@@ -39,7 +36,7 @@ async function login(username,password){
     const userCollection = await users();
     let user = await userCollection.find({ username: username }).toArray()
     if(user.length < 1){
-        throw "username or Password does not exist!"
+        throw "Username or Password does not exist!"
     }
     let find = await bcrypt.compare(password, user[0].password)
     let obj = {};
@@ -128,35 +125,8 @@ async function beVIP(username){
 }
 
 
-
-
-
-
-async function checkUser(userName, password) {
-    // check whether userName and password are provided or not
-    if(!userName || !password) {
-        throw 'userName or password not provided';
-    }
-    
-    // check whether userName and password are valid or not
-    helpcheck.isValidName(userName);
-    helpcheck.isValidPassword(password);
-    
-    const userCollection = await users();
-    userName = userName.toLowerCase();
-    const user = await userCollection.findOne({userName: userName});
-    if(user === null) {
-        return false;
-    } 
-
-    let result = await bcrypt.compare(password, user.password);
-    if(!result) return false
-    return true;
-
-}
-
 module.exports = {
     registerUser,getUserById,login,findUserByName,updateUserBalance,beVIP
-    ,getUserById,findUserByName,checkUser
+    ,getUserById,findUserByName
 
 }
