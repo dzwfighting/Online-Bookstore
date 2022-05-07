@@ -102,6 +102,11 @@
     margin-top: 16px;
     transition: .3s linear;
   }
+
+  .fixBorder {
+    display: block;
+    padding: 12px 50px;
+  }
   
   .contact-btn:hover{
     background: #e66767;
@@ -135,4 +140,8 @@
     width: 1px;
     height: 30px;
     background: #bbb;
+  }
+
+  .top_border{
+    padding-top: 25px;
   }

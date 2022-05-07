@@ -117,10 +117,8 @@ router.post('/newBook', async (req, res) => {
                                               bookInData.newBookCovers.trim(),
                                               bookInData.newPublicationDate,
                                               bookInData.newContent.trim());
-      res.status(200).json({
-                 message:"Create book successfully"
-                })
-      // res.redirect(`/${newBook._id}`);
+      
+      res.redirect(`/book/${newBook._id}`);
   } catch (e) {
       res.status(400).json("some thing wrong");
   }
@@ -161,13 +159,14 @@ router.post('/result',async(req,res)=>{
 //get book by id
 router.get("/:id", async (req, res) => { 
     try{
-        const bookId = req.params.id;
+        const bookId = xss(req.params.id);
         const book = await bookData.get(bookId);
-        return book;
+        res.render('book/single',{book:book});
+
     }catch(e){
-        res.status(400).json({
-            error:e
-          })
+        res.status(400).json(
+            "hey, something wrong"
+          )
     }
     
      
