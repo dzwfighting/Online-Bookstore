@@ -93,7 +93,7 @@ module.exports = {
         if (!id) throw "An id must be provided";
         if (typeof id !== 'string') throw "The id must be a string";
         if (id.trim().length === 0) throw "The id must not be an empty string";
-        var obj = new objId(id)
+        var obj = new ObjectId(id)
     
         const bookCollection = await books();
         const deletionInfo = await bookCollection.deleteOne({ _id: obj });
