@@ -3,12 +3,13 @@
     <div class="user" id="{{userInfo._id}}">
         <div id="main-bookshelf-content">
             <div class="info">
-                <h1 class="title">{{userInfo.username}}</h1>
+                <h1>{{userInfo.username}}</h1>
                 <table>
                     <tr>
                         <th>Books:</th>
-                        <td>{{booksInShelf.bookName}}</td>
-                        <td><a href= {{booksInShelf.content}}>Read</a></td>
+                        <td>{{bookNames}}</td>
+                        <td><img class="book-img" src="{{bookCoverss}}" alt="{{bookNames}}" title="{{bookNames}}"></td>
+                        <td><a href= {{bookContents}}>Read</a></td>
                     </tr>
                 </table>   
             </div>

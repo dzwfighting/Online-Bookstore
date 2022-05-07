@@ -8,8 +8,7 @@ module.exports = {
         if (!id) throw "You must provide an id to search for";
         if (typeof id !== "string") throw "The provided id must be a string";
         if (id.trim().length === 0) throw "The provided must not be an empty string";
-    
-        let parsedId = ObjectId(id.trim());          
+        let parsedId = new ObjectId(id);          
         const bookCollection = await books();
         const book = await bookCollection.findOne({_id:parsedId})
         if (book.length === 0) throw "No book with that id";

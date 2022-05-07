@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const bookData = data.book;
-const userData = data.user;
+const userData = data.users;
 const bookshelfData = data.bookshelf;
 const path = require('path');
 const xss = require('xss');
@@ -29,18 +29,25 @@ router.post("/add", async (req, res) => {
     }
   });
 //the page of bookshelf with userId
-router.get("/:userid", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try{
-        const userid = req.params.userid;
+        const userid = req.params.id;
         const userInfo = await userData.getUserById(userid);
-        const booksInShelf = []
-        for (const i in userInfo.bookshelf){
-            const bookInfo = bookData.get(i);
-            booksInShelf.push(bookInfo);
+        const bookNames = []
+        const bookCoverss = []
+        const bookContents = []
+        // for (const i in userInfo.bookshelf){
+        //     bookNames.push(i[0]);
+        // }
+        for(var i = 0; i < userInfo.bookshelf.length; i++){
+            bookInfo = await bookData.get(userInfo.bookshelf[i].toString());
+            bookNames.push(bookInfo.bookName);
+            bookContents.push(bookInfo.content);
+            bookCoverss.push(bookInfo.bookCovers);
         }
-
-        res.status(200).render("bookshelf/bookshelfPage",{userInfo, booksInShelf});
+        res.status(200).render("bookshelf/bookshelfPage",{userInfo, bookNames,bookContents,bookCoverss});
       }catch(e){
         res.status(400).redirect('/home')
       }
     });
+module.exports = router;

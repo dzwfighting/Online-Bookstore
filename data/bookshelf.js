@@ -2,7 +2,7 @@ const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 const books = mongoCollections.books;
 const bookData = require("./book");
-const userData = require("./user");
+const userData = require("./users");
 const {ObjectId} = require("mongodb");
 module.exports = {
         //add book to the bookshelf
