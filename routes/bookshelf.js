@@ -18,11 +18,11 @@ router.post("/add/:bookId", async (req, res) => {
    
     }catch(e){
 
-    //   const userId = req.cookies.userid;
-      errarr=[]
-      errarr.push(e)
-        res.status(400).json(errarr);
-    //   res.status(400).redirect("/bookshelf/"+userId); 
+      const userId = req.session.user.userId;
+        errarr=[]
+        errarr.push(e)
+        // res.status(400).json(errarr);
+        res.status(400).redirect("/bookshelf/"+userId); 
    
     }
   });
@@ -34,9 +34,6 @@ router.get("/:id", async (req, res) => {
         const bookNames = []
         const bookCoverss = []
         const bookContents = []
-        // for (const i in userInfo.bookshelf){
-        //     bookNames.push(i[0]);
-        // }
         for(var i = 0; i < userInfo.bookshelf.length; i++){
             bookInfo = await bookData.get(userInfo.bookshelf[i].id.toString());
             bookNames.push(bookInfo.bookName);
