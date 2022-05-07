@@ -1,0 +1,19 @@
+<div class="bookshelf-container"></div>
+    {{#if userInfo}}
+    <div class="user" id="{{userInfo._id}}">
+        <div id="main-bookshelf-content">
+            <div class="info">
+                <h1>{{userInfo.username}}</h1>
+                <table>
+                    <tr>
+                        <th>Books:</th>
+                        <td>{{bookNames}}</td>
+                        <td><img class="book-img" src="{{bookCoverss}}" alt="{{bookNames}}" title="{{bookNames}}"></td>
+                        <td><a href= {{bookContents}}>Read</a></td>
+                    </tr>
+                </table>   
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</div>             

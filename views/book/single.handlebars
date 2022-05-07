@@ -1,6 +1,6 @@
 <div class="book-container">
     {{#if book}}
-    <div class="book books" id="{{book._id}}">
+    <div class="books" id="{{book._id}}">
         <div id="main-book-content">
             <img class="book-img" src="{{book.bookCovers}}" alt="{{book.bookName}}" title="{{book.bookName}}">
             <div class="info">
@@ -25,13 +25,14 @@
                 <h2>Rating:</h2>
                 <span>{{book.avgRating}}</span> <!-- replace with {{avgRating}} -->
             </div>
-            {{!-- </p>
+            </p>
             <div class="actions">
-                    <form class="action-form" action="/book/bookshelf/{{book._id}}" method="POST">
+                    <form class="action-form" action="/bookshelf/add/{{book._id}}" method="POST">
                         <input name="singleBookshelf" value="single" type="hidden">
-                        <button name="bookshelf" value="bookshelf" id="bookshelf-{{book._id}}"><img src="/public/img/bookshelf.png" alt="Wishlist Icon">Wishlist</button> |
+                        <button name="bookshelf" value="bookshelf" id="bookshelf-{{book._id}}">
+                            <img src="/public/img/bookshelf.png" alt="Icon">Add to Bookshelf</button> |
                     </form>
-            </div> --}}
+            </div>
         </div>
 
         <h1>User Reviews</h1>
