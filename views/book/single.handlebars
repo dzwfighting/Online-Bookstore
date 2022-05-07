@@ -1,41 +1,42 @@
+<head><link rel="stylesheet" href="/public/css/single.css" /></head>
 <div class="book-container">
     {{#if book}}
     <div class="books" id="{{book._id}}">
         <div id="main-book-content">
             <img class="book-img" src="{{book.bookCovers}}" alt="{{book.bookName}}" title="{{book.bookName}}">
             <div class="info">
-                <h1 class="title">{{book.bookName}}</h1>
-                <p class="subinfo">({{book.publicationDate}}) <span>{{book.author}}</span></p>
-                <table>
+                <h2 class="title">{{book.bookName}}</h2>
+                <p class="subinfo"><h2>({{book.publicationDate}})</h2> <span><h2>{{book.author}}</h2></span></p>
+                <table class="book-table">
                     <tr>
-                        <th>Genres:</th>
-                        <td>{{book.bookTag}}</td>
+                        <th><h2>Genres:</h2></th>
+                        <td><h2>{{book.bookTag}}</h2></td>
                     </tr>
                 </table>
             </div>
             <h2>Description:</h2>
             <p id="book-desc">
-                {{book.description}}
+                <h2>{{book.description}}</h2>
             </p>
             <h2>Price:</h2>
             <p id="book-price">
-                {{book.price}}
+                <h2>{{book.price}}</h2>
             </p>
             <div class="score">
                 <h2>Rating:</h2>
-                <span>{{book.avgRating}}</span> <!-- replace with {{avgRating}} -->
+                <span><h2>{{book.avgRating}}</h2></span> <!-- replace with {{avgRating}} -->
             </div>
             </p>
             <div class="actions">
                     <form class="action-form" action="/bookshelf/add/{{book._id}}" method="POST">
                         <input name="singleBookshelf" value="single" type="hidden">
-                        <button name="bookshelf" value="bookshelf" id="bookshelf-{{book._id}}">
-                            <img src="/public/img/bookshelf.png" alt="Icon">Add to Bookshelf</button> |
+                        <button name="bookshelf" class="submit-btn" value="bookshelf" id="bookshelf-{{book._id}}">
+                            <img src="/public/img/bookshelf.png" alt="Icon">Add to Bookshelf</button>
                     </form>
             </div>
         </div>
 
-        <h1>User Reviews</h1>
+        <h2>User Reviews</h2>
         {{#each book.reviews}}
 
         </div>
