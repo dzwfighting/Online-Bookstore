@@ -1,36 +1,20 @@
 const mongoCollections = require("../config/mongoCollections");
 const books = mongoCollections.books;
-const objId = require('mongodb').ObjectID;
+let { ObjectId } = require('mongodb');
 
 module.exports = {
     //Get the book by ID 
        async get(id) {
-           
-           if (!id) throw "You must provide an id to search for";
-           if (id.trim().length === 0) throw "The id must not be an empty string";
-           if(id.constructor != objId){
-               if(id.constructor == String){
-               if(objId.isValid(id)){
-                  
-                   var obj = new objId(id)
-                   const bookCollection = await books();
-                  
-                   const book = await bookCollection.findOne({_id:obj})
-                   
-                   if (book.length === 0) throw "No book with that id";
-                   return book;
-               }else{
-                   throw "It is not a valid id";
-               }
-               }else{
-               throw "Please input Id as object Id or string";
-               }
-           }else{
-               const bookCollection = await books();
-               const book = await bookCollection.findOne({_id:id})
-               if (book.length === 0) throw "No book with that id";
-               return book;
-           }
+        if (!id) throw "You must provide an id to search for";
+        if (typeof id !== "string") throw "The provided id must be a string";
+        if (id.trim().length === 0) throw "The provided must not be an empty string";
+    
+        let parsedId = ObjectId(id.trim());          
+        const bookCollection = await books();
+        const book = await bookCollection.findOne({_id:parsedId})
+        if (book.length === 0) throw "No book with that id";
+        return book;
+
        },
        //search by book name or author
        async getByKeyword(keyword) {
