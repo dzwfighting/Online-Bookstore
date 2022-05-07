@@ -241,3 +241,10 @@ nav .right ul li ul li a{
 nav .right ul li ul li a:hover{
     color:rgb(223, 119, 0);
 }
+
+.half-form{
+    width:45%;
+    margin-right: 5%;
+    float: left;
+}
+
