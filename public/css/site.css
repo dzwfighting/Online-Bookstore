@@ -137,6 +137,7 @@ p {
     font-size: 6.5rem;
     color: #309482;
     line-height: 6rem;
+    text-shadow: black 0.1em 0.1em 0.2em
 }
 
 .subtitle{
@@ -144,6 +145,7 @@ p {
     font-size: 3rem;
     color: #309482;
     line-height: 6rem;
+    text-shadow: black 0.1em 0.1em 0.2em
 }
 
 nav{
@@ -417,4 +419,5 @@ nav .right ul li ul li a:hover{
 
 #list{
     color: #278172;
+    text-shadow: black 0.1em 0.1em 0.2em
 }
