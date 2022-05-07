@@ -21,7 +21,8 @@ async function registerUser(username,email,password){
         email:email,
         password:hashPwd,
         balance:0,
-        vip:false
+        vip:false,
+        bookshelf:[]
     }
     // newUser.accountType = "user";
     const insertInfo = await userCollection.insertOne(newUser);
