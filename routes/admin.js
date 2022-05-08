@@ -12,11 +12,11 @@ const { admin } = require('../data');
 
 router.get('/login', async (req, res) =>{
     if(req.session.adminId){
-        return res.redirect('/homepage');
+        return res.redirect('admin/profile');
     }
     else {
         res.render('admin/login', {
-            title: 'admin Login',
+            title: 'Admin Login',
             partial: 'login-script'
         });
     }
@@ -25,7 +25,7 @@ router.get('/login', async (req, res) =>{
 
 router.post('/login', async (req, res) =>{
     if(req.session.adminId){
-        return res.redirect('/homepage');
+        return res.redirect('admin/profile');
     }
     else {
         let {username, password} = req.body;
@@ -44,47 +44,64 @@ router.post('/login', async (req, res) =>{
                 error : "Invalid admin username or password, please try again",
         })
     }
+
+    // try {
+    //     if(req.body.username ==  '' || req.body.password ==  '' ) throw 'Please fill all fields';
+    //     const admin = await adminData.login(req.body.username, req.body.password)
+    //     req.session.user = {
+    //         username: req.body.username,
+    //         userId:user.userId,
+    //     };
+    //
+    //     return res.status(200).redirect("/admin/profile")
+    //     }catch (e){
+    //         return res.status(400).render("users/login",{
+    //             hasErrors:true,
+    //             error : e,
+    //         })
+    // }
+    
 });
 
 // add book
-router.post('/book/newBook', async (req, res) =>{
-    try {
-        let bookDataInfo = req.body;
-        if (!bookDataInfo.bookName) throw "You must provide a string of book name";
+// router.post('/book/newBook', async (req, res) =>{
+//     try {
+//         let bookDataInfo = req.body;
+//         if (!bookDataInfo.bookName) throw "You must provide a string of book name";
     
-        if (!bookDataInfo.author) throw "You must provide the author name";
+//         if (!bookDataInfo.author) throw "You must provide the author name";
 
-        if (!bookDataInfo.description) throw "You must provide a string of book Description";
+//         if (!bookDataInfo.description) throw "You must provide a string of book Description";
         
-        if (!bookDataInfo.bookTag) throw "You must provide book genre";
+//         if (!bookDataInfo.bookTag) throw "You must provide book genre";
        
-        if (!bookDataInfo.price) throw "You must provide book price";
+//         if (!bookDataInfo.price) throw "You must provide book price";
 
-        if (!bookDataInfo.publicationDate) throw "You must provide a book publish time";
+//         if (!bookDataInfo.publicationDate) throw "You must provide a book publish time";
 
-        if (!bookDataInfo.bookCovers) throw "You must provide book images";
-        if (!bookDataInfo.content) throw "You must provide book images";
+//         if (!bookDataInfo.bookCovers) throw "You must provide book images";
+//         if (!bookDataInfo.content) throw "You must provide book images";
 
         
-        const book = await bookData.create(
-        req.body.bookName,
-        bookDataInfo.author,
-        bookDataInfo.description,
-        bookDataInfo.bookTag,
-        bookDataInfo.price,
-        bookDataInfo.bookCovers,
-        bookDataInfo.publicationDate,
-        bookDataInfo.content
-        );
+//         const book = await bookData.create(
+//         req.body.bookName,
+//         bookDataInfo.author,
+//         bookDataInfo.description,
+//         bookDataInfo.bookTag,
+//         bookDataInfo.price,
+//         bookDataInfo.bookCovers,
+//         bookDataInfo.publicationDate,
+//         bookDataInfo.content
+//         );
 
-        res.redirect('/book/single');
-    }catch (e){
-        return res.status(400).render("book/searchPage",{
-            hasErrors: true,
-            error : "Something wrong, please try again",
-        })
-    }
-});
+//         res.redirect('/book/single');
+//     }catch (e){
+//         return res.status(400).render("book/searchPage",{
+//             hasErrors: true,
+//             error : "Something wrong, please try again",
+//         })
+//     }
+// });
 
 
 
