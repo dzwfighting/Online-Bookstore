@@ -29,17 +29,41 @@
         a{
             color: black;
         }
+        #time:hover{
+            background: #aa4b6b;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        #rating:hover{
+            background: #aa4b6b;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        #price:hover{
+            background: #aa4b6b;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        
         
     </style>
     <h1 align="center">Welcome to Book Search Page</h1>
 
 </head>
 <body class="bod1">
-
+<button id="time">
+Sort by pulication date
+</button>
+<button id="rating">
+Sort by average rating
+</button>
+<button id="price">
+Sort by price
+</button>
 <div class="search-box">
     <h1 id="errorMessage" hidden></h1>
     <form id="searchForm">
-      <label for="'inputbookname">
+      <label for="inputbookname">
           Input the book you want to find
           <input type="text" name="bookname" id="inputbookname">
       </label>
@@ -47,11 +71,13 @@
     </form>
 </div>
 <ul id="showList" hidden></ul>
-
 <div id="show" hidden></div>
 <a href="/book/search" id="homeLink" hidden>Back to All Books</a>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
 </body>
+<div style="position: relative;">
+    <a href="/users/profile">Back to profile</a>
+</div>
 <script src="/public/js/searchPage.js"></script>
 

@@ -73,7 +73,7 @@
   
   .desc{
     font-size: 18px;
-    color: #e66767;
+    color: #f08181;
   }
   
   .sm{
@@ -96,8 +96,8 @@
   .contact-btn{
     display: inline-block;
     padding: 12px 50px;
-    color: #e66767;
-    border: 2px solid #e66767;
+    color: #f08181;
+    border: 2px solid #f08181;
     border-radius: 6px;
     margin-top: 16px;
     transition: .3s linear;
@@ -127,7 +127,7 @@
     flex: 1;
     text-transform: uppercase;
     font-size: 13px;
-    color: #e66767;
+    color: #d72929;
   }
   
   .item span{

@@ -57,13 +57,89 @@
                   }
 
                   for (let i of tarBooks) {
-                     // let j = i.show;
-                      showList.append("<li><a href=" +"/home"+ ">" + i.bookName + "</a></li>");
+                      let bookId=i._id;
+                      let newId=bookId.toString();
+                      showList.append("<li><a href=" +"/book/"+newId+">" + i.bookName + "</a></li>");
                   }
               }
           });
       }
   });
+  $("#price").click(function(){
+     showList.empty();
+     $.ajax({
+         type:'post',
+         url:'/book/sort',
+         data:{term:'price'},
+         success:function(res){
+             if(!res.bookArr){
+                 errorMessage.show().html(res.error)
+                 homeLink.show();
+             }else{
+                 showList.show();
+                 homeLink.show();
+                 for(let i of res.bookArr){
+                    let bookId=i._id;
+                    let newId=bookId.toString();
+                    showList.append("<li><a href=" +"/book/"+newId+">" + i.bookName+":Price: $"+i.price+"</a></li>")
+                 }
+             }
+             
+         }
+     })
+  });
+  $("#time").click(function(){
+    showList.empty();
+    $.ajax({
+        type:'post',
+        url:'/book/sort',
+        data:{term:'time'},
+        success:function(res){
+            if(!res.bookArr){
+                errorMessage.show().html(res.error);
+                homeLink.show();
+            }else{
+                showList.show();
+                homeLink.show();
+                for(let i of res.bookArr){
+                   let bookId=i.bookId;
+                   //let newId=bookId.toString();
+                   showList.append("<li><a href=" +"/book/"+bookId+">" + i.bookName+":Publication Date: "+i.publicationDate+ "</a></li>")
+                }
+            }
+            
+        }
+    })
+ });
+
+ $("#rating").click(function(){
+    showList.empty();
+    $.ajax({
+        type:'post',
+        url:'/book/sort',
+        data:{term:'avgRating'},
+        success:function(res){
+            if(!res.bookArr){
+                errorMessage.show().html(res.error)
+                homeLink.show();
+            }else{
+                showList.show();
+                homeLink.show();
+                for(let i of res.bookArr){
+                   let bookId=i._id;
+                   let newId=bookId.toString();
+                   showList.append("<li><a href=" +"/book/"+newId+">"+ i.bookName+":Rating: "+i.avgRating+ "</a></li>")
+                }
+            }
+            
+        }
+    })
+ });
+
+
+
+
+
 
  // showList.on('click', 'a', function (event) {
  //     event.preventDefault();

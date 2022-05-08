@@ -28,21 +28,20 @@ router.post("/add/:bookId", async (req, res) => {
   });
 //the page of bookshelf with userId
 router.get("/:id", async (req, res) => {
-    try{
-        const userid = req.params.id;
-        const userInfo = await userData.getUserById(userid);
-        const bookNames = []
-        const bookCoverss = []
-        const bookContents = []
-        for(var i = 0; i < userInfo.bookshelf.length; i++){
-            bookInfo = await bookData.get(userInfo.bookshelf[i].id.toString());
-            bookNames.push(bookInfo.bookName);
-            bookContents.push(bookInfo.content);
-            bookCoverss.push(bookInfo.bookCovers);
+    if(req.session.user){
+      let userId=req.params.id;
+      try{
+        let user=await userData.getUserById(userId);
+        if(user.bookshelf==null||user.bookshelf==[]){
+          return res.render('bookshelf/bookshelfPage',{message:'You have no books yet.'})
         }
-        res.status(200).render("bookshelf/bookshelfPage",{userInfo, bookNames,bookContents,bookCoverss});
+        return res.render('bookshelf/bookshelfPage',{user:user})
       }catch(e){
-        res.status(400).redirect('/home')
+        return res.status(400).json({error:e})
       }
+
+    }else{
+      return res.redirect('/users/login')
+    }
     });
 module.exports = router;

@@ -39,9 +39,9 @@
 <div class="search-box">
     <form action="/users/vip" method="POST">
       <label for="password">
-          VIP is $10 per month,are you sure to subscribe it?
+          {{bookName}} is ${{price}}, are you sure to buy it?
           Please enter the password of your account if you are sure.
-          <h1>{{message}}</h1>
+          <h6>{{message}}</h6>
           <input type="text" name="psd" id="password">
       </label>
       <button type="button" id="canBtn">Cancel</button>
@@ -60,7 +60,7 @@
       })
       var cancel=$("#canBtn")
       cancel.click(function(){
-          window.location.href="/users/profile"
+          window.location.href="/book/search"
       })
     });
 </script>

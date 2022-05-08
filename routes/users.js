@@ -66,6 +66,31 @@ router.post("/login",async (req,res)=>{
             })
         }
     });
+router.get('/purchase/:id',async(req,res)=>{
+      if(!req.session.user){
+          res.redirect('/users/login')
+      }else{
+          let userId=req.params.id
+          try{
+              let user=await usersData.getUserById(userId);
+              if(user.purHistory==[]){
+                  throw 'No purchase history.'
+              }
+              res.render('users/purchaseHistory',{user:user})
+          }catch(e){
+              res.render('users/purchaseHistory',{message:e})
+          }
+
+
+
+
+      }
+
+
+
+
+
+})
 router.get('/profile',async(req,res)=>{
         if(!req.session.user){
             return res.redirect("/")
@@ -107,7 +132,7 @@ router.post('/recharge',async(req,res)=>{
 
 router.get('/vip',async(req,res)=>{
     if(!req.session.user){
-        return res.redirect('/')
+        return res.redirect('/users/login')
     }else{
         return res.render('users/vip',{})
     }

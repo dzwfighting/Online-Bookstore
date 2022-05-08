@@ -18,12 +18,12 @@
 
 
 <div>
-    <h1>Here is your bookshelf</h1>
+    <h1>Here is your purchase history</h1>
 </div>
 <ul>
     {{message}}
     {{#each user.bookshelf}}
-    <li style="display: inline;"><a href="/book/{{_id}}" style="color: black;">{{bookName}} </a></li><button type="button">read</button><br>
+    <li><a href="/book/{{_id}}" style="color: black;">{{bookName}} </a></li>
     {{/each}}
 </ul>
 <div class="footer">

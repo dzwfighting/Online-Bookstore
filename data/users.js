@@ -1,7 +1,9 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 const {ObjectId} = require("mongodb");
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const { get } = require('./book');
+const res = require('express/lib/response');
 
 async function registerUser(username,email,password){
     checkStr(email,'email');
@@ -20,7 +22,9 @@ async function registerUser(username,email,password){
         password:hashPwd,
         balance:0,
         vip:false,
-        bookshelf:[]
+        bookshelf:[],
+        purHistory:[],
+        reviews:[]
     }
     // newUser.accountType = "user";
     const insertInfo = await userCollection.insertOne(newUser);
@@ -125,8 +129,45 @@ async function beVIP(username){
     let curUser=await findUserByName(username)
     return curUser
 }
+async function buyBooks(username,price,bookId){
+    let preUser=await findUserByName(username);
+    let book=await get(bookId);
+    let prevBalance=preUser.balance;
+    let shelfArr=preUser.bookshelf
+    for(let i=0;i<shelfArr.length;i++){
+        if(shelfArr[i]._id==bookId){
+            throw "You already have this book,cannot buy twice."
+        }
+    }
+    if(prevBalance<price){
+        throw "You don't have sufficient money.Please recharge!"
+    }else{
+        let curBalance=prevBalance-price;
+        shelfArr.push(book);
+        let newUser={
+            balance:curBalance,
+            bookshelf:shelfArr,
+        }
+        const usersCollection=await users()
+        const updatedInfo=await usersCollection.updateOne({username:username},{$set:newUser})
+        if(updatedInfo.modifiedCount===0){
+           throw 'Could not be updated'
+    }
+        let curUser=await findUserByName(username)
+        return curUser
+            
+    }
+
+    
+    let newUser={
+        balance:curBalance,
+
+    }
+
+
+}
 
 
 module.exports = {
-    registerUser,getUserById,login,updateUserBalance,beVIP,findUserByName,checkStr
+    registerUser,getUserById,login,updateUserBalance,beVIP,findUserByName,checkStr,buyBooks
 }

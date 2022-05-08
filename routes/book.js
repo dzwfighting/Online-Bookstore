@@ -3,8 +3,11 @@ const router = express.Router();
 const multer = require('multer')
 const data = require("../data");
 const bookData = data.book;
+const usersData=data.users;
 const path = require('path');
 const xss = require('xss');
+const { findUserByName } = require("../data/users");
+const { get } = require("../data/book");
 // const storage = multer.diskStorage({
 //       destination: function(req, file, cb){
 //           cb(null,'./uploads/')
@@ -140,6 +143,51 @@ router.post('/newBook', async (req, res) => {
         })
     }
 }); 
+router.get('/buy/:bookId',async(req,res)=>{
+   try{
+        if(!req.session.user){
+          return res.redirect('/users/login')
+        }
+        else{
+          let bookid=req.params.bookId
+          let book=await get(bookid)
+          let price=book.price
+          let bookName=book.bookName
+          let username=req.session.user.username;
+          let newUser=await usersData.buyBooks(username,price,bookid)
+          res.status(200).render('users/rechargeResult',{message:'You have bought '+bookName+' for '+price+' successfully!'})
+
+        }
+   }catch(e){
+          res.status(400).render('users/rechargeResult',{error:e})
+   }
+
+
+
+})
+router.post('/sort',async(req,res)=>{
+      let term=req.body.term;
+      try{
+        if(term=='price'||term=='avgRating'){
+          let sortedArr=await bookData.sortBook(term)
+          return res.status(200).json({bookArr:sortedArr})
+        }
+        if(term=='time'){
+          let sortedArr=await bookData.sortBookByDate()
+           return res.status(200).json({bookArr:sortedArr})
+        }
+
+      }catch(e){
+          return res.status(400).json({error:e})
+      }
+      
+
+
+
+
+
+
+})
 router.get('/getAll',async(req,res)=>{
   try{
     let bookArr=await bookData.getAll()

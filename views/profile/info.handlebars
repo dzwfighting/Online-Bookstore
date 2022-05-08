@@ -6,7 +6,7 @@
  <div class="name">{{user.username}}
      <div style="display:inline" class="vip">
          {{#if user.vip}}
-         <img src="/public/static/vip.svg" id="vipPic">
+         <img src="/public/static/vip.svg" alt="No img"id="vipPic">
          {{/if}}
      </div>
  </div>
@@ -38,11 +38,11 @@
  </div>
  <div class="border"></div>
  <div class="item">
- <a href="#">My Reviews</a>
+ <a href="#" style="color:#1f74b4;">My Reviews</a>
  </div>
  <div class="border"></div>
  <div class="item">
- <a href="#">My Purchase History</a>
+ <a href="/users/purchase/{{user._id}}" style="color:#1f74b4;">My Purchase History</a>
  </div>
  </div>
  </div>

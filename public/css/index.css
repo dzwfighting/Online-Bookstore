@@ -1,5 +1,4 @@
 @charset "utf-8";
-/*通用样式*/
 *{ margin:0; padding:0;font-family:'Times New Roman', Times, serif,Verdana,Arial; font-size:12px;}
 a{ text-decoration:none;  color: #666;}
 a:hover{ text-decoration:none; color:#46b448;}
@@ -44,8 +43,7 @@ input{ outline:none; border:none;}
 	display: none;
 }
 .show{ display:block;}
-/*首页样式*/
-/*分页样式*/
+
 .page {
 	clear: both;
 	margin: 30px 0;
@@ -61,7 +59,7 @@ input{ outline:none; border:none;}
 	background: #00a0e9;
 	border: 1px solid #0091d2;
 }
-/*头部*/
+
 .top{
 	height: 30px;
 	line-height: 30px;
@@ -75,7 +73,7 @@ input{ outline:none; border:none;}
 	padding: 0 15px;
 	border-right: 1px solid #666;
 }
-/*header*/
+
 .header{
 	height: 100px;
 }
@@ -129,7 +127,7 @@ input{ outline:none; border:none;}
 	background: #FEEADF;
 }
 
-/*banner*/
+
 .about,.focus,.help{
 	height: 300px; ;
 	border: 1px solid #dee8ef;
@@ -175,7 +173,7 @@ input{ outline:none; border:none;}
 	padding-left: 10px;
 }
 
-/*书栏目*/
+
 .item{
 	border: 1px solid #dee8ef;
 	border-radius: 20px 20px 0 0;
@@ -205,7 +203,7 @@ input{ outline:none; border:none;}
 	top: 0;
 	font-size: 16px;
 }
-/*教材左边*/
+
 .list{
 	width: 200px;
 	text-align: center;
@@ -257,7 +255,7 @@ ul.two li{
 .list ul.two li a:hover{
 	text-decoration: underline;
 }
-/*教材右边*/
+
 .book-wrap{
 	width: 978px;
 	padding: 10px;
@@ -297,7 +295,7 @@ ul.two li{
 	color: #999;
 	font-size: 12px;
 }
-/*工具书区*/
+
 .tab{
 	width: 1000px;
 	margin: 0 auto;
@@ -325,7 +323,7 @@ ul.two li{
 .tabs{
 	padding: 5px 27px;
 }
-/*底部*/
+
 .line{
 	height: 1px;
 	background-color: #dee8ef;
@@ -359,7 +357,7 @@ ul.two li{
 	text-align: center;
 	font-size: 12px;
 }
-/*右边导航*/
+
 .fixnav{
 	position: fixed;
 	right: 20px;
@@ -384,7 +382,7 @@ ul.two li{
 	background-color: red;
 	text-decoration: none;
 }
-/*书本详情页*/
+
 .bread{
 	height: 40px;
 	line-height: 40px;
@@ -498,7 +496,7 @@ a.back{
 	font-weight: bold;
 }
 
-/*详情弹出层*/
+
 body,html{
 	/*height: 100%;*/
 }
@@ -772,7 +770,7 @@ body,html{
 .select-book button.send.selected:after {
 	opacity: 1;
 }
-/* -----[ 图片放大 ]--------------------- */
+
 .zoom-wrap{  margin: 0 100px 0 50px;}
 #zoom { width:300px; height:424px; margin-left:2px; }
 #zoom a{
@@ -796,7 +794,7 @@ body,html{
 .list_img li{ float:left; margin-right:6px; width:84px; height:84px; padding:7px 2px 2px ; _display:inline;}
 .list_img li img { width:84px; height:84px; }
 
-/*公告页面*/
+
 .mainbody {
 	background: #FFF;
 }
@@ -919,7 +917,7 @@ body,html{
 	color: #ff7100;
 	font-size: 12px;
 }
-/*帮助中心页面*/
+
 .help-l{
 	width: 200px;
 	border-top: 4px solid #999;
@@ -977,7 +975,7 @@ body,html{
 	max-width: 100%;
 	height: auto;
 }
-/*书列表页*/
+
 .list-main .container{
 	border:#ddd 1px solid;
 	border-radius:4px;
@@ -998,7 +996,7 @@ body,html{
 .select-no{color:#999}
 .select .select-result a{padding-right:20px;background:#f60 url("../images/close.gif") right 9px no-repeat}
 .select .select-result a:hover{background-position:right -15px}
-/*登录注册页面*/
+
 /* remove codrops styles and reset the whole thing */
 #container_demo{
 	text-align: left;
@@ -1360,7 +1358,7 @@ p.change_link{
 	animation-timing-function: ease;
 	animation-fill-mode: both;
 }
-/*个人中心*/
+
 .help-main input{
 	border: 1px solid #ddd;
 	padding: 5px 10px;
@@ -1381,8 +1379,7 @@ p.change_link{
 	text-align: right;
 	display: inline-block;
 }
-/*已发布书籍*/
-/*商品栏目*/
+
 .product-item{
 	height: 30px;
 	width: 100%;
@@ -1403,7 +1400,7 @@ p.change_link{
 	color: #999;
 	font-size: 14px;
 }
-/*商品详情*/
+
 .product-attr{
 	height: 100px;
 	width: 100%;
@@ -1503,7 +1500,7 @@ li.edit span:hover i,li.edit span:hover p{
 li.edit span:last-child:hover{
 	background-color: #DA4F49;
 }
-/*图书发布页面*/
+
 .product-edit-title{
 	width: 100%;
 	background-color: #F5F5F5;

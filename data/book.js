@@ -1,6 +1,8 @@
 const mongoCollections = require("../config/mongoCollections");
 const books = mongoCollections.books;
 const objId = require('mongodb').ObjectID;
+let { ObjectId } = require('mongodb');
+
 
 module.exports = {
     //Get the book by ID 
@@ -8,10 +10,11 @@ module.exports = {
         if (!id) throw "You must provide an id to search for";
         if (typeof id !== "string") throw "The provided id must be a string";
         if (id.trim().length === 0) throw "The provided must not be an empty string";
-        let parseId = new ObjectId(id);          
+        let parseId = ObjectId(id);          
         const bookCollection = await books();
         const book = await bookCollection.findOne({_id:parseId})
         if (book.length === 0) throw "No book with that id";
+        book._id=book._id.toString();
         return book;
 
        },
@@ -204,7 +207,53 @@ module.exports = {
           }
         }
         return newBookArr
+    },
+     compare(field){
+         return function(m,n){
+             var a=m[field];
+             var b=n[field];
+             return b-a
+         }
+    },
+    async sortBook(field){
+        let bookArr=await this.getAll();
+        if(bookArr==[]){
+            throw "You don't have books to be sorted."
+        }else{
+            bookArr.sort(this.compare(field))
+        }   
+        return bookArr;
+    },
+    async sortBookByDate(){
+        let bookArr=await this.getAll();
+        if(bookArr==[]){
+            throw "You don't have books to be sorted."
+        }else{
+
+            arr=[]
+            for(let i=0;i<bookArr.length;i++){
+                let date=bookArr[i].publicationDate
+                let dateArr=date.split('-')
+                let year=dateArr[2];
+                let newYear=parseInt(year)
+                let bookId=bookArr[i]._id.toString();
+                let obj={
+                    publicationDate:bookArr[i].publicationDate,
+                    bookName:bookArr[i].bookName,
+                    year:newYear,
+                    bookId:bookId
+                }
+                arr.push(obj);
+            }
+            arr.sort(this.compare('year'))
+        }   
+        return arr
     }
+
+
+
+
+
 
     }
    

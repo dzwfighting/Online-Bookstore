@@ -19,7 +19,7 @@
 				<p>Rating:<span>{{book.avgRating}}</span></p>
 				<p>Publication Date:<span>{{book.publicationDate}}</span></p>
                 <p>Price:$<span>{{book.price}}</span></p>
-				<a href="#" class="pay">Buy Now</a>
+				<a href="/book/buy/{{book._id}}" class="pay">Buy Now</a>
 			</div>
 			<div class="clearfix"></div>
             {{#if flag}}

@@ -14,7 +14,7 @@ router.get("/home", async (req, res) => {
             title: "Home Page",
             content:"Popular books",
             status:true,
-            books:booksList.slice(0,7),
+            books:booksList.slice(0,5),
         });
     }
 
