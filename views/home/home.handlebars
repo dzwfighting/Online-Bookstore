@@ -8,9 +8,17 @@
 
     <div class="right">
         <ul>
-            <li><a id="list" href="/users/login">LOG IN</a></li>
+            {{#if uName}}
+                <div >
+                    <a id="list" href="/users/profile" >{{uName}}</a></li>
+                </div>
+            <li><img id="logo" src="../../public/static/icon.png" alt="Logo" style=""></li>
+            {{else}}
+                <li><a id="list" href="/users/login">LOG IN</a></li>
+            {{/if}}
         </ul>
     </div>
+
 </nav>
     <div class="section" id="section0">
         <p class="title wow fadeIn">Duck Books,</p>

@@ -1,6 +1,6 @@
-<head><link rel="stylesheet" href="/public/css/newBook.css" /></head>
+<head><link rel="stylesheet" href="/public/css/newBook.css" />
 <div class="form-container">
-    <form class="book-new" method="POST" action="/book/newBook">
+    <form class="book-new" method="POST" action="/admin/addBook">
         <!-- Title -->
         <div class="form-elem">
             <label for ="title-input">Book Name:</label>
@@ -9,17 +9,27 @@
         <!-- Image -->
         <div class="form-elem">
             <label for ="image-input">Book Cover URL:</label>
-            <input id="image-input" type="text" name="newBookCovers" placeholder="must end in jpeg, jpg, png" value="{{bookCovers}}">
+            <select id="image-input" name="newBookCovers" class="image-picker show-labels"  >
+                <option data-img-src="../../public/static/bookicon/bridge.jpg" value="../../public/static/bookicon/bridge.jpg">Bridge</option>
+                <option data-img-src="../../public/static/bookicon/bridge.jpg" value="../../public/static/bookicon/building.jpg">building</option>
+                <option data-img-src="../../public/static/bookicon/bridge.jpg" value="../../public/static/bookicon/car.jpg">Car</option>
+                <option data-img-src="../../public/static/bookicon/bridge.jpg" value="../../public/static/bookicon/human.jpg">Human</option>
+                <option data-img-src="../../public/static/bookicon/bridge.jpg" value="../../public/static/bookicon/jump.jpg">Jump</option>
+                <option data-img-src="../../public/static/bookicon/bridge.jpg" value="../../public/static/bookicon/leaf.jpg">Leaf</option>
+                <option data-img-src="../../public/static/bookicon/bridge.jpg" value="../../public/static/bookicon/lunar.jpeg">Lunar</option>
+                <option data-img-src="../../public/static/bookicon/bridge.jpg" value="../../public/static/bookicon/sky.jpg">Sky</option>
+            </select>
+<!--            <input id="image-input" type="text" name="newBookCovers" placeholder="must end in jpeg, jpg, png" value="{{bookCovers}}">-->
         </div>
         <!-- Content -->
         <div class="form-elem">
             <label for ="content-input">Book content URL:</label>
-            <input id="content-input" type="text" name="newContent" placeholder="i don't know" value="{{content}}">
+            <input id="content-input" type="text" name="newContent" placeholder=" " value="{{content}}">
         </div>
         <!-- Author -->
         <div class="form-elem">
             <label for ="Author-input">Author:</label>
-            <input id="Author-input" type="text" name="newAuthor"  value="{{author}}">
+            <input id="Author-input" type="text" name="newAuthor"  placeholder="ex. Tom" value="{{author}}">
         </div>
         <!-- Release Year -->
         <div class="form-elem">
@@ -29,12 +39,9 @@
         <!-- Genres -->
         <div class="form-elem" id="genre-div">
             <label for ="genre-input1">Genres:</label>
-            <input id="genre-input1" type="text" name="newGenres[]" value="{{bookTag}}">
+            <input id="genre-input1" type="text" placeholder="ex. Love" name="newGenres" value="{{bookTag}}">
         </div>
-        {{!-- <div class="center">
-            <button id="new-genre" class="update-field" type="button"><img class="form-button" src="/public/img/add.png" alt="add genre"/></button>
-            <button id="remove-genre" class="update-field" type="button"><img class="form-button" src="/public/img/sub.png" alt="remove genre"/></button>
-        </div> --}}
+
         <!-- Prices -->
         <div class="form-elem" id="price-div">
             <label for ="price-input1">Price:</label>
@@ -45,22 +52,20 @@
             <label for ="description-input">Description:</label>
             <textarea name="newDesc" rows="10" cols="72" id="description-input"></textarea>
         </div>
+        {{#if hasErrors }}
+            <div class="form-group" style="margin-bottom: 15px;text-align: left;">
+                <ul class="error-list" style="padding-inline-start: 0px;">
+
+                    <li style="list-style: none;">
+                        <p class="not-found" style="color: #f14835;font-size: 15px">{{error}}</p>
+                    </li>
+                </ul>
+            </div>
+        {{/if}}
         <div class="contact-btn">
             <button id="new-submit" type="submit">Submit</button>
         </div>
+
     </form>
-    <div class="hidden center form-elem" id="bookForm-error-container">
-        <ul id="bookFormErrors">
-            
-        </ul>
-    </div>
-    {{#if error}}
-        <div class="form-elem">
-            <ul>
-            {{#each error}}
-            <li class="error-elem">{{this}}</li>
-            {{/each}}
-            </ul>
-        </div>
-    {{/if}}
+
 </div>

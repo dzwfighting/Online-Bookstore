@@ -90,7 +90,8 @@ module.exports = {
 
                 return book
            
-        } 
+        }
+
       },
       async removeBookById(id) {
         if (!id) throw "An id must be provided";

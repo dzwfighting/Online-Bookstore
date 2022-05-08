@@ -7,15 +7,32 @@ router.get("/home", async (req, res) => {
     console.log("home")
     let booksList = await bookData.getAll();
     if(booksList.length == 0){
-        return res.status(200).render("home/home", {title: "Home Page",
-        status:false});
+        if (req.session.user){
+            return res.status(200).render("home/home", {title: "Home Page",uName:req.session.user.username,
+                status:false});
+        }else {
+            return res.status(200).render("home/home", {title: "Home Page",
+                status:false});
+        }
+
     }else {
-        return res.status(200).render("home/home", {
-            title: "Home Page",
-            content:"Popular books",
-            status:true,
-            books:booksList.slice(0,5),
-        });
+        if (req.session.user){
+            return res.status(200).render("home/home", {
+                uName:req.session.user.username,
+                title: "Home Page",
+                content:"Popular books",
+                status:true,
+                books:booksList.slice(0,5),
+            });
+        }else {
+            return res.status(200).render("home/home", {
+                title: "Home Page",
+                content:"Popular books",
+                status:true,
+                books:booksList.slice(0,5),
+            });
+        }
+
     }
 
 

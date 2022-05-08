@@ -1,7 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const { ObjectId } = require('mongodb');
 const comments = mongoCollections.comments;
-const postsCollection = require("./posts.js");
+
 
 async function getCommentById(id) {
     if (!id || typeof id !== "string")

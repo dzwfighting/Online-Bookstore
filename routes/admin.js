@@ -5,8 +5,7 @@ const adminData = data.admin;
 const bookData = data.book;
 const usersData = data.users;
 const bcrypt = require('bcrypt');
-const saltRounds = 16;
-const xss = require('xss');
+
 const { admin } = require('../data');
 
 
@@ -15,7 +14,7 @@ router.get('/login', async (req, res) =>{
         return res.redirect('admin/profile');
     }
     else {
-        res.render('admin/login', {
+       return  res.render('admin/login', {
             title: 'Admin Login',
             partial: 'login-script'
         });
@@ -64,68 +63,62 @@ router.post('/login', async (req, res) =>{
 });
 
 // add book
-// router.post('/book/newBook', async (req, res) =>{
-//     try {
-//         let bookDataInfo = req.body;
-//         if (!bookDataInfo.bookName) throw "You must provide a string of book name";
+router.post('/addBook', async (req, res) =>{
+    try {
+        if (!req.body.newBookName) throw "Please fill all fields";
     
-//         if (!bookDataInfo.author) throw "You must provide the author name";
+        if (!req.body.newAuthor) throw "Please fill all fields";
 
-//         if (!bookDataInfo.description) throw "You must provide a string of book Description";
+        if (!req.body.newDesc) throw "Please fill all fields";
         
-//         if (!bookDataInfo.bookTag) throw "You must provide book genre";
+        if (!req.body.newGenres) throw "Please fill all fields";
        
-//         if (!bookDataInfo.price) throw "You must provide book price";
+        if (!req.body.newPrice) throw "Please fill all fields";
 
-//         if (!bookDataInfo.publicationDate) throw "You must provide a book publish time";
+        if (typeof parseInt(req.body.newPrice) != 'number' ) throw 'price must number';
 
-//         if (!bookDataInfo.bookCovers) throw "You must provide book images";
-//         if (!bookDataInfo.content) throw "You must provide book images";
+        if (!req.body.newPublicationDate) throw "Please fill all fields";
+
+        let dataFormat = /^(\d{4})-(\d{2})-(\d{2})$/;
+        if (!dataFormat.test(req.body.newPublicationDate)) throw "Please input correct Date format"
+
+        if (!req.body.newBookCovers) throw "Please fill all fields";
+        if (!req.body.newContent) throw "Please fill all fields";
 
         
-//         const book = await bookData.create(
-//         req.body.bookName,
-//         bookDataInfo.author,
-//         bookDataInfo.description,
-//         bookDataInfo.bookTag,
-//         bookDataInfo.price,
-//         bookDataInfo.bookCovers,
-//         bookDataInfo.publicationDate,
-//         bookDataInfo.content
-//         );
+        const book = await bookData.create(
+            req.body.newBookName,
+            req.body.newAuthor,
+            req.body.newDesc,
+            req.body.newGenres,
+            req.body.newPrice,
+            req.body.newBookCovers,
+            req.body.newPublicationDate,
+            req.body.newContent
+        );
 
-//         res.redirect('/book/single');
-//     }catch (e){
-//         return res.status(400).render("book/searchPage",{
-//             hasErrors: true,
-//             error : "Something wrong, please try again",
-//         })
-//     }
-// });
+        return res.redirect('/book/'+book._id);
+    }catch (e){
+        return res.status(400).render("book/newBook",{
+            hasErrors: true,
+            error : e
+        })
+    }
+});
 
 
 
 router.get('/book/newBook', async (req, res) => {
         if (req.session.adminId) {
-        let userInformation = await admin.getAdminById(req.session.adminId);
-        res.render('book/newBook', { userInformation, partial: "addBook-script", admin: true });
+             return res.render('book/newBook', {  partial: "addBook-script", admin: true });
         }
         else {
-            // res.render('admin/adminLogin', {
-            //     title: 'admin Login',
-            //     partial: 'login-script',
-            //     message: "Add failed, please try again",
-            //     error: "Add failed, please try again"
             return res.status(400).render("admin/login", {
                 hasErrors: true,
                 error: "Invalid admin username or password, please try again",
             });
         }
-    // console.log("Add Book")
 
-    // return res.render("admin/adminPage", {
-    //     title:"Admin Page"
-    // });
 
     
 });
@@ -135,10 +128,10 @@ router.get('/book/newBook', async (req, res) => {
     
 router.get('/profile',async(req,res)=>{
     if(!req.session.adminId){
-        res.redirect('../admin/login')
+        return res.redirect('../admin/login')
     }
     let userInformation = await adminData.getAdminById(req.session.adminId);
-    res.status(200).render('admin/adminPage',{
+       return  res.status(200).render('admin/adminPage',{
         userInformation,
         partial: 'admin-script',
         admin: true
