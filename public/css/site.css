@@ -116,6 +116,14 @@ p {
     justify-content: center;
 }
 
+#fullpage1{
+    height:100vh;
+    background-image: url('../../public/static/book2.jpg');
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 
@@ -127,15 +135,17 @@ p {
 .title{
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 6.5rem;
-    color: #fff;
+    color: #309482;
     line-height: 6rem;
+    text-shadow: black 0.1em 0.1em 0.2em
 }
 
 .subtitle{
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 3rem;
-    color: #fff;
+    color: #309482;
     line-height: 6rem;
+    text-shadow: black 0.1em 0.1em 0.2em
 }
 
 nav{
@@ -248,3 +258,166 @@ nav .right ul li ul li a:hover{
     float: left;
 }
 
+/*书列表页*/
+.list-main .container{
+    border:#ddd 1px solid;
+    border-radius:4px;
+    margin-top: 20px;
+}
+
+.select {
+    padding: 5px 10px;
+    width: 1180px;
+}
+
+.select li {
+    list-style: none;
+    padding: 10px 0 5px 100px;
+}
+
+.select .select-list {
+    border-bottom: #eee 1px dashed
+}
+
+.select dl {
+    zoom: 1;
+    position: relative;
+    line-height: 24px;
+}
+
+.select dl:after {
+    content: " ";
+    display: block;
+    clear: both;
+    height: 0;
+    overflow: hidden
+}
+
+.select dt {
+    width: 100px;
+    margin-bottom: 5px;
+    position: absolute;
+    top: 0;
+    left: -100px;
+    text-align: right;
+    color: #666;
+    height: 24px;
+    line-height: 24px
+}
+
+.select dd {
+    float: left;
+    display: inline;
+    margin: 0 0 5px 5px;
+}
+
+.select dd.hide {
+    display: none;
+}
+
+.select a {
+    display: inline-block;
+    white-space: nowrap;
+    height: 24px;
+    padding: 0 10px;
+    text-decoration: none;
+    color: #039;
+    border-radius: 2px;
+}
+
+
+.select a:hover {
+    color: #f60;
+    background-color: #f3edc2
+}
+
+.select .selected a {
+    color: #fff;
+    background-color: #f60
+}
+
+.select-result dt {
+    font-weight: bold
+}
+
+.select-no {
+    color: #999
+}
+
+.select .select-result a {
+    padding-right: 20px;
+
+}
+
+.select .select-result a:hover {
+    background-position: right -15px
+}
+
+.clearfix:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.tabs{
+    padding: 5px 27px;
+}
+
+.book-wrap{
+    width: 978px;
+    padding: 10px;
+}
+.book dl{
+    float: left;
+    margin: 10px;
+    width: 143px;
+}
+.book dl dt{
+    border: 1px solid #309482;
+    padding: 7px 10px 5px 10px;
+
+}
+.book dl dt img{
+    width: 123px;
+    height: 177px;
+    font-size: 0;
+}
+.book dl dd{
+    text-align: center;
+    margin-top: 5px;
+}
+.book dl dd p:first-child a{
+    font-size: 20px;
+    color: #278163;
+}
+.book dl dd p:nth-child(2){
+    font-size: 14px;
+    color: #dc1324;
+}
+.book dl dd p:nth-child(3){
+    font-size: 16px;
+    color: red;
+}
+.book dl dd p:nth-child(3) s{
+    color: #d5e1dd;
+    font-size: 12px;
+}
+
+#list{
+    color: #278172;
+    text-shadow: black 0.1em 0.1em 0.2em
+}

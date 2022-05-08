@@ -5,32 +5,15 @@ const objId = require('mongodb').ObjectID;
 module.exports = {
     //Get the book by ID 
        async get(id) {
-           
-           if (!id) throw "You must provide an id to search for";
-           if (id.trim().length === 0) throw "The id must not be an empty string";
-           if(id.constructor != objId){
-               if(id.constructor == String){
-               if(objId.isValid(id)){
-                  
-                   var obj = new objId(id)
-                   const bookCollection = await books();
-                  
-                   const book = await bookCollection.findOne({_id:obj})
-                   
-                   if (book.length === 0) throw "No book with that id";
-                   return book;
-               }else{
-                   throw "It is not a valid id";
-               }
-               }else{
-               throw "Please input Id as object Id or string";
-               }
-           }else{
-               const bookCollection = await books();
-               const book = await bookCollection.findOne({_id:id})
-               if (book.length === 0) throw "No book with that id";
-               return book;
-           }
+        if (!id) throw "You must provide an id to search for";
+        if (typeof id !== "string") throw "The provided id must be a string";
+        if (id.trim().length === 0) throw "The provided must not be an empty string";
+        let parseId = new ObjectId(id);          
+        const bookCollection = await books();
+        const book = await bookCollection.findOne({_id:parseId})
+        if (book.length === 0) throw "No book with that id";
+        return book;
+
        },
        //search by book name or author
        async getByKeyword(keyword) {
@@ -120,6 +103,48 @@ module.exports = {
     
         return true;
     },
+/**
+ * Updates Rating with given bookId's average rating.
+ */
+ async updateBookRating(bookId, rating) {
+    if (!bookId) throw "You must provide an id to search for";
+    rating = parseInt(rating);
+    if (rating === null) throw "You must provide a rating";
+    if (rating > 5 || rating < 0) throw "Rating must be in the valid range of (0-5)"; 
+    parseId = ObjectId(bookId);
+    const bookCollection = await books();
+
+    const book = await bookCollection.findOne({_id:parseId})
+
+    total = rating;
+
+    if(book.rating.length > 0){
+        for (let i = 0; i < book.rating.length; i++) {
+            total += parseInt(book.rating[i]);
+        }
+
+        avgRating = total/(1+book.rating.length);
+    }else{
+        avgRating = total;
+    }
+    // trim to 1 decimal
+
+    avgRating = parseFloat(avgRating.toFixed(1));
+
+    const updateInfo = await bookCollection.updateOne(
+        { _id: parseId },
+        { $set: { avgRating: avgRating }}
+    )
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
+        throw `Failed to update book's avgRating.`;
+    const updateInfo2 = await bookCollection.updateOne(
+        { _id: parseId },
+        {$addToSet: { rating: rating } }
+    )
+    if (!updateInfo2.matchedCount && !updateInfo2.modifiedCount)
+        throw `Failed to add rating.`;
+    return await book;
+},
       async getAll() {
  
         const bookCollection = await books();
