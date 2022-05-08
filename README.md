@@ -4,9 +4,9 @@
 
 ### Operation:
 
-- npm install
-- npm run seed
-- npm start
+- npm install - install all the package and dependencies
+- npm run seed - install seed data
+- npm start - start application
 
 ### Admin account:
 
