@@ -127,7 +127,8 @@ router.get('/profile',async(req,res)=>{
         let saveduser={}
         saveduser=req.session.user
         username=saveduser.username
-        let user=await usersData.findUserByName(username) 
+        let user=await usersData.findUserByName(username)
+        user._id=user._id.toString() 
         res.status(200).render('profile/info',{
            user:user
         })

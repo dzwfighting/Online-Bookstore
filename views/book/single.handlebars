@@ -1,76 +1,46 @@
-<head><link rel="stylesheet" href="/public/css/single.css" /></head>
-<div class="book-container">
-    {{#if book}}
-    <div class="books" id="{{book._id}}">
-        <div id="main-book-content">
-            <img class="book-img" src="{{book.bookCovers}}" alt="{{book.bookName}}" title="{{book.bookName}}">
-            <div class="info">
-                <h2 class="title">{{book.bookName}}</h2>
-                <p class="subinfo"><h2>({{book.publicationDate}})</h2> <span><h2>{{book.author}}</h2></span></p>
-                <table class="book-table">
-                    <tr>
-                        <th><h2>Genres:</h2></th>
-                        <td><h2>{{book.bookTag}}</h2></td>
-                    </tr>
-                </table>
-            </div>
-            <h2>Description:</h2>
-            <p id="book-desc">
-                <h2>{{book.description}}</h2>
-            </p>
-            <h2>Price:</h2>
-            <p id="book-price">
-                <h2>{{book.price}}</h2>
-            </p>
-            <div class="score">
-                <h2>Rating:</h2>
-                <span><h2>{{book.avgRating}}</h2></span> <!-- replace with {{avgRating}} -->
-            </div>
-            </p>
-            <div class="actions">
-                    <form class="action-form" action="/bookshelf/add/{{book._id}}" method="POST">
-                        <input name="singleBookshelf" value="single" type="hidden">
-                        <button name="bookshelf" class="submit-btn" value="bookshelf" id="bookshelf-{{book._id}}">
-                            <img src="/public/img/bookshelf.png" alt="Icon">Add to Bookshelf</button>
-                    </form>
-            </div>
-        </div>
 
-        <h2>User Reviews</h2>
-        {{#each book.reviews}}
+<link rel="stylesheet" href="/public/css/index.css"/>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script src="/public/js/main.js"></script>
+<script type="text/javascript" src="js/mz-packed.js"></script>
+<div class="main">
+	<div class="container clearfix">
+		<div class="main-left fl clearfix">
+			<div class="zoom-wrap fl">
+				<div id="zoom">
+						<img class="bzoom" src={{book.bookCovers}} width="300" height="424" alt="No available pictures."/>
+				</div>
+			</div>
+			<div class="attr fl">
+				<p>Book Name:<span>{{book.bookName}}</span></p>
+				<p>Description:<span>{{book.description}}</span></p>
+				<p>Author:<span>{{book.author}}</span></p>
+                <p>Book Tags:<span>{{book.bookTag}}</span></p>
+				<p>Rating:<span>{{book.avgRating}}</span></p>
+				<p>Publication Date:<span>{{book.publicationDate}}</span></p>
+                <p>Price:$<span>{{book.price}}</span></p>
+				<a href="#" class="pay">Buy Now</a>
+			</div>
+			<div class="clearfix"></div>
+            {{#if flag}}
+               <h1>No comments available.</h1>
+            {{else}}
+            {{#each book.reviews}}
+			<div class="description clearfix">
+				<h1>User Comment</h1>
+				<p>{{reviewText}}</p>
+			</div>
+			{{/each}}
 
-        </div>
-        {{/each}}
-
-        <!-- Should only be shown if user is logged in -->
-        {{!-- <div>
-            <h3 id="review-form-header">Create a new Review</h3>
-            <form id = "review-form" method="POST" action="/books/{{book._id}}" class="new-review-post">
-                <input name="bookTitle" value="{{book.title}}" type="hidden">
-                <input name="bookId" value="{{book._id}}" type="hidden">
-                <div class="form-elem">
-                    <label for="reviewTitle">Title</label>
-                    <input id="reviewTitle" name="reviewTitle" type="text" placeholder="Give your review a title!">
-                </div>
-                <div id="rating-input" class="form-elem">
-                    <label for="reviewRating">Rating</label>
-                    <input id="reviewRating" name="reviewRating" type="number" min="1" max="5" placeholder="5">
-                </div>
-                <div class="form-elem">
-                    <label for="reviewBody">Review</label>
-                    <textarea id="reviewBody" name="reviewBody" placeholder="Enter your review here!" rows="4" cols="50"></textarea>
-                </div>
-                <button id="review-submit-button" type="submit">Submit</button>
-            </form>
-            <div id = "reviewError"  hidden>
-        
-            </div> --}}
-            {{#if hasErrors}}
-               {{#each errors}}
-               <p class="reviewErrors">{{this}}</p>
-              {{/each}}
             {{/if}}
-        </div>
-    </div>
-    {{/if}}
+            
+		</div>
+
+	</div>
 </div>
+
+<div id="return">
+	<button id="btn"><a href="/book/search" class="back">All Books</a></button>
+</div>
+
+

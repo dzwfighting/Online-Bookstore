@@ -159,9 +159,34 @@ router.post('/result',async(req,res)=>{
 //get book by id
 router.get("/:id", async (req, res) => { 
     try{
+        let flag=false;
         const bookId = xss(req.params.id);
         const book = await bookData.get(bookId);
-        res.render('book/single',{book:book});
+        if(book.description==null){
+          book.description='N/A'
+        }
+        if(book.author==null){
+          book.author='N/A'
+        }
+        if(book.avgRating==null){
+          book.avgRating='N/A'
+        }
+        if(book.publicationDate==null){
+          book.publicationDate='N/A'
+        }
+        if(book.price==null){
+          book.price='N/A'
+        }
+        if(book.bookTag==null){
+          book.bookTag="N/A"
+        }
+        if(book.reviews==null){
+          book.reviews=[]
+        }
+        if(book.reviews.length==0||book.reviews==null){
+          flag=true
+        }
+        res.render('book/single',{book:book,flag:flag});
 
     }catch(e){
         res.status(400).json(

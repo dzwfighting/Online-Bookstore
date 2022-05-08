@@ -19,7 +19,9 @@
           }
           let showsData = $(res.bookArr);
           for (let i of showsData) {
-              showList.append("<li><a href=" +"/home" + ">" + i.bookName + "</a></li>");
+              let bookId=i._id;
+              let newId=bookId.toString()
+              showList.append("<li><a href=" +"/book/"+newId+ ">" + i.bookName + "</a></li>");
           }
       }
   });
