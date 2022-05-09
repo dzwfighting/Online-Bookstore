@@ -3,7 +3,6 @@ const router = express.Router();
 const data = require("../data");
 const adminData = data.admin;
 const bookData = data.book;
-const usersData = data.users;
 const bcrypt = require('bcrypt');
 
 const { admin } = require('../data');
@@ -11,7 +10,7 @@ const { admin } = require('../data');
 
 router.get('/login', async (req, res) =>{
     if(req.session.adminId){
-        return res.redirect('admin/profile');
+        return res.redirect('/admin/profile');
     }
     else {
        return  res.render('admin/login', {
@@ -33,7 +32,7 @@ router.post('/login', async (req, res) =>{
             if(username === x.username){
                 if(await bcrypt.compare(password, x.password)){
                     req.session.adminId = x._id.toHexString();
-                    res.redirect('/admin/profile');
+                    return res.redirect('/admin/profile');
                 }
                 break;
             }
@@ -44,21 +43,7 @@ router.post('/login', async (req, res) =>{
         })
     }
 
-    // try {
-    //     if(req.body.username ==  '' || req.body.password ==  '' ) throw 'Please fill all fields';
-    //     const admin = await adminData.login(req.body.username, req.body.password)
-    //     req.session.user = {
-    //         username: req.body.username,
-    //         userId:user.userId,
-    //     };
-    //
-    //     return res.status(200).redirect("/admin/profile")
-    //     }catch (e){
-    //         return res.status(400).render("users/login",{
-    //             hasErrors:true,
-    //             error : e,
-    //         })
-    // }
+
     
 });
 
@@ -79,7 +64,7 @@ router.post('/addBook', async (req, res) =>{
 
         if (!req.body.newPublicationDate) throw "Please fill all fields";
 
-        let dataFormat = /^(\d{4})-(\d{2})-(\d{2})$/;
+        let dataFormat = /^(\d{2})-(\d{2})-(\d{4})$/;
         if (!dataFormat.test(req.body.newPublicationDate)) throw "Please input correct Date format"
 
         if (!req.body.newBookCovers) throw "Please fill all fields";
@@ -128,7 +113,7 @@ router.get('/book/newBook', async (req, res) => {
     
 router.get('/profile',async(req,res)=>{
     if(!req.session.adminId){
-        return res.redirect('../admin/login')
+        return res.redirect('/admin/login')
     }
     let userInformation = await adminData.getAdminById(req.session.adminId);
        return  res.status(200).render('admin/adminPage',{
