@@ -34,3 +34,6 @@ https://github.com/dzwfighting/Online-Bookstore
 
 https://user-images.githubusercontent.com/90535397/197873165-49fee478-67d8-4334-8940-849bec35fb2b.MP4
 
+
+
+[Online-bookstore-Demo.pdf](https://github.com/dzwfighting/Online-Bookstore/files/9876412/Online-bookstore-Demo.pdf)
